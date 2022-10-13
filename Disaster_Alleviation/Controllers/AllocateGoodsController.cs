@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,38 +7,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Disaster_Alleviation.Models;
-using Microsoft.AspNetCore.Http;
 
 namespace Disaster_Alleviation.Controllers
 {
-    public class DisastersController : Controller
+    public class AllocateGoodsController : Controller
     {
-        private readonly Disaster_Context _context;
+        private readonly Goods_donation_Context _context;
 
-        public DisastersController(Disaster_Context context)
+        public AllocateGoodsController(Goods_donation_Context context)
         {
             _context = context;
         }
 
-        // GET: Disasters
-        //code attribution
-        //this method was taken DotNetTricks
-        //https://www.dotnettricks.com/learn/mvc/return-view-vs-return-redirecttoaction-vs-return-redirect-vs-return-redirecttoroute
-        //Shailendra Chauhan
-        //https://www.dotnettricks.com/mentors/shailendra-chauhan
-        //(Chauhan, 2022)
+        // GET: AllocateGoods
         public async Task<IActionResult> Index()
         {
-            if (HttpContext.Session.GetString("LoggedIn") != "Yes")
-            {
-                return Redirect("/Users/Login");
-            }
-
-           
-            return View(await _context.Disaster.ToListAsync());
+            return View(await _context.AllocateGoods.ToListAsync());
         }
 
-        // GET: Disasters/Details/5
+        // GET: AllocateGoods/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,45 +33,39 @@ namespace Disaster_Alleviation.Controllers
                 return NotFound();
             }
 
-            var disaster = await _context.Disaster
-                .FirstOrDefaultAsync(m => m.DisasterID == id);
-            if (disaster == null)
+            var allocateGoods = await _context.AllocateGoods
+                .FirstOrDefaultAsync(m => m.GoodsID == id);
+            if (allocateGoods == null)
             {
                 return NotFound();
             }
 
-
-            HttpContext.Session.SetString("Disaster", disaster.DisasterID.ToString());
-            HttpContext.Session.SetString("Disaster", disaster.DisasterName.ToString());
-            HttpContext.Session.SetString("Disaster", disaster.Location.ToString());
-            return View(disaster);
+            return View(allocateGoods);
         }
 
-        // GET: Disasters/Create
+        // GET: AllocateGoods/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Disasters/Create
+        // POST: AllocateGoods/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DisasterID,DisasterName,Location,Description,StartDate,EndDate,AidType, Status")] Disaster disaster)
+        public async Task<IActionResult> Create([Bind("GoodsID,Goods_Category,Num_items,Goods_Description,DonationDate,Goods_Donor")] AllocateGoods allocateGoods)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(disaster);
+                _context.Add(allocateGoods);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(disaster);
-
-           
+            return View(allocateGoods);
         }
 
-        // GET: Disasters/Edit/5
+        // GET: AllocateGoods/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -91,22 +73,22 @@ namespace Disaster_Alleviation.Controllers
                 return NotFound();
             }
 
-            var disaster = await _context.Disaster.FindAsync(id);
-            if (disaster == null)
+            var allocateGoods = await _context.AllocateGoods.FindAsync(id);
+            if (allocateGoods == null)
             {
                 return NotFound();
             }
-            return View(disaster);
+            return View(allocateGoods);
         }
 
-        // POST: Disasters/Edit/5
+        // POST: AllocateGoods/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DisasterID,DisasterName,Location,Description,StartDate,EndDate,AidType")] Disaster disaster)
+        public async Task<IActionResult> Edit(int id, [Bind("GoodsID,Goods_Category,Num_items,Goods_Description,DonationDate,Goods_Donor")] AllocateGoods allocateGoods)
         {
-            if (id != disaster.DisasterID)
+            if (id != allocateGoods.GoodsID)
             {
                 return NotFound();
             }
@@ -115,12 +97,12 @@ namespace Disaster_Alleviation.Controllers
             {
                 try
                 {
-                    _context.Update(disaster);
+                    _context.Update(allocateGoods);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DisasterExists(disaster.DisasterID))
+                    if (!AllocateGoodsExists(allocateGoods.GoodsID))
                     {
                         return NotFound();
                     }
@@ -131,10 +113,10 @@ namespace Disaster_Alleviation.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(disaster);
+            return View(allocateGoods);
         }
 
-        // GET: Disasters/Delete/5
+        // GET: AllocateGoods/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -142,30 +124,30 @@ namespace Disaster_Alleviation.Controllers
                 return NotFound();
             }
 
-            var disaster = await _context.Disaster
-                .FirstOrDefaultAsync(m => m.DisasterID == id);
-            if (disaster == null)
+            var allocateGoods = await _context.AllocateGoods
+                .FirstOrDefaultAsync(m => m.GoodsID == id);
+            if (allocateGoods == null)
             {
                 return NotFound();
             }
 
-            return View(disaster);
+            return View(allocateGoods);
         }
 
-        // POST: Disasters/Delete/5
+        // POST: AllocateGoods/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var disaster = await _context.Disaster.FindAsync(id);
-            _context.Disaster.Remove(disaster);
+            var allocateGoods = await _context.AllocateGoods.FindAsync(id);
+            _context.AllocateGoods.Remove(allocateGoods);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DisasterExists(int id)
+        private bool AllocateGoodsExists(int id)
         {
-            return _context.Disaster.Any(e => e.DisasterID == id);
+            return _context.AllocateGoods.Any(e => e.GoodsID == id);
         }
     }
 }

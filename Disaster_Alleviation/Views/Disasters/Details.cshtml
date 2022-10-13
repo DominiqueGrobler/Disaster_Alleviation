@@ -3,7 +3,9 @@
 @{
     ViewData["Title"] = "Details";
 }
-
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
     body {
         font-family: Arial, Helvetica, sans-serif;
@@ -11,23 +13,83 @@
     }
     /* Set a style for all buttons */
     button {
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
+        background-color: #7E0272;
         color: white;
-        padding: 100px 20px;
+        padding: 14px 20px;
         margin: 8px 0;
         border: none;
         cursor: pointer;
-        width: 250px;
-        height: 250px;
-        border-radius: 8px;
+        width: 100%;
+        border-radius: 4px;
     }
 
         button:hover {
             opacity: 0.8;
         }
 
+    .dropbtn {
+        background-color: #7E0272;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+    }
+
+        .dropbtn:hover, .dropbtn:focus {
+            background-color: #7E0272;
+        }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #7E0272;
+        min-width: 160px;
+        overflow: auto;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+        .dropdown-content a {
+            color: #7E0272;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+    .dropdown a:hover {
+        background-color: #A264B4;
+    }
+
+    .show {
+        display: block;
+    }
+
+    tr {
+        background-color: #7E0272;
+        color: #7E0272;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    td {
+        vertical-align: middle;
+    }
+
+    th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: center;
+        background-color: #7E0272;
+        color: white;
+    }
+
+    
     a {
         color: white;
         background-color: transparent;
@@ -67,7 +129,8 @@
 
     /* Set a style for all buttons */
     button {
-        background-color: #A264B4;
+        background-color: #7E0272;
+        
         color: white;
         padding: 14px 20px;
         margin: 8px 0;
@@ -76,11 +139,29 @@
         width: 100%;
         border-radius: 4px;
         height: 50px;
+        font-weight: bold;
     }
 
         button:hover {
             opacity: 0.8;
         }
+
+    tr {
+        background-color: #A264B4;
+        color: #7E0272;
+        font-weight: bold;
+        text-align: center;
+    }
+
+
+    th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: center;
+        font-weight: bold;
+        background-color: #7E0272;
+        color: white;
+    }
 
     /* Extra styles for the cancel button */
     .cancelbtn {
@@ -221,54 +302,125 @@
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
                 <h1 class="mb-2 bread" style="text-align:center;">Disaster Details</h1>
-                <p class="breadcrumbs"><span class="mr-2"><a asp-action="Index"> Home > <i class="ion-ios-arrow-forward"></i></a></span></p>
+                <p class="breadcrumbs"><span class="mr-2"><a asp-action="Index"> Disaster List> <i class="ion-ios-arrow-forward"></i></a></span></p>
             </div>
         </div>
     </div>
 </section>
 <br />
 <br />
-
-<div>
-    <dl class="row">
-        <dt class="col-sm-2" style="color: #FF914D">
-            DISASTER NAME
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DisasterName)
-        </dd>
-        <dt class="col-sm-2" style="color: #FF914D">
-            LOCATION
-        </dt>
-        <dd class="col-sm-10">
+<table class="table">
+    <thead>
+        <tr style="background-color:#E5E9ED">
+            <th>
+                DISASTER
+            </th>
+            <th>
+                LOCATION
+            </th>
+            <th>
+                DESCRIPTION
+            </th>
+            <th>
+                START DATE
+            </th>
+            <th>
+                END DATE
+            </th>
+            <th>
+                AID TYPE
+            </th>
+            <th>
+                STATUS
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tr>
+        <td style="vertical-align: middle;">
+             @Html.DisplayFor(model => model.DisasterName)
+        </td>
+        <td style="vertical-align: middle;">
             @Html.DisplayFor(model => model.Location)
-        </dd>
-        <dt class="col-sm-2" style="color: #FF914D">
-            DESCRIPTION
-        </dt>
-        <dd class="col-sm-10">
+        </td>
+        <td style="vertical-align: middle;">
             @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class="col-sm-2" style="color: #FF914D">
-            START DATE
-        </dt>
-        <dd class="col-sm-10">
+        </td>
+        <td style="vertical-align: middle;">
             @Html.DisplayFor(model => model.StartDate)
-        </dd>
-        <dt class="col-sm-2" style="color: #FF914D">
-            END DATE
-        </dt>
-        <dd class="col-sm-10">
+        </td>
+        <td style="vertical-align: middle;">
             @Html.DisplayFor(model => model.EndDate)
-        </dd>
-        <dt class="col-sm-2" style="color: #FF914D">
-           AID TYPE
-        </dt>
-        <dd class="col-sm-10">
+        </td>
+        <td style="vertical-align: middle;">
             @Html.DisplayFor(model => model.AidType)
-        </dd>
-    </dl>
+        <td style="vertical-align: middle;">
+                @Html.DisplayFor(model => model.Status)
+                @if (DateTime.Today < Model.StartDate)
+                {
+                <span style="color:white">Upcoming</span>
+                }
+                else @if (DateTime.Today > Model.StartDate && DateTime.Today < Model.EndDate)
+                {
+                <span style="color:#97C71B">Active</span>
+                }
+
+                else @if (DateTime.Today > Model.EndDate)
+                {
+                <span style="color:#FF914D">Resolved</span>
+                }
+
+        </td>
+        <td>
+            <a asp-action="Edit" asp-route-id="@Model.DisasterID"><button value="Edit" class="w3-small w3-padding-small" style="height:40px;"><b>EDIT </b></button></a>
+                </td>
+                <td>
+            <a asp-action="Delete" asp-route-id="@Model.DisasterID"><button value="Delete" class="w3-small w3-padding-small" style="height:40px;" ><i class="fa fa-trash"></i></button></a>
+                </td>
+                <td>
+            <div class="dropdown">
+                <button onclick="myFunction()" class="dropbtn w3-small w3-padding-small" style="height:40px;"><i class="fa fa-plus-circle"></i></button>
+                <div id="myDropdown" class="dropdown-content">
+                    
+                        <button asponclick="location.href=('/Monetary_donations/Index')">Allocate Money</button>
+                    
+                    
+                    <button onclick="location.href=('/Goods_donations/Index')" >Allocate Goods</button>
+                    
+                </div>
+            </div>
+
+            <script>
+                /* When the user clicks on the button,
+                toggle between hiding and showing the dropdown content */
+                function myFunction() {
+                    document.getElementById("myDropdown").classList.toggle("show");
+                }
+
+                // Close the dropdown if the user clicks outside of it
+                window.onclick = function (event) {
+                    if (!event.target.matches('.dropbtn')) {
+                        var dropdowns = document.getElementsByClassName("dropdown-content");
+                        var i;
+                        for (i = 0; i < dropdowns.length; i++) {
+                            var openDropdown = dropdowns[i];
+                            if (openDropdown.classList.contains('show')) {
+                                openDropdown.classList.remove('show');
+                            }
+                        }
+                    }
+                }
+            </script>
+                </td>
+        </tr>
+      
+        </table>
+        <div>
+    <a asp-action="Index"><button value="Index" style="background-color:#FF914D;">BACK TO DONATION LIST</button></a>
 </div>
-<div>
-    <a asp-action="Index"><button value="Index">BACK TO DONATION LIST</button></a>
-</div>
+<br />
+<br />
+<br />
+

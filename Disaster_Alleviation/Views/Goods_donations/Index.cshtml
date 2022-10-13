@@ -3,7 +3,9 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 
     body {
@@ -12,7 +14,7 @@
     }
     /* Set a style for all buttons */
     button {
-        background-color: #A264B4;
+        background-color: #7E0272;
         color: white;
         padding: 14px 20px;
         margin: 8px 0;
@@ -25,6 +27,22 @@
         button:hover {
             opacity: 0.8;
         }
+
+    tr {
+        background-color: #A264B4;
+        color: #7E0272;
+        font-weight: bold;
+        text-align: center;
+    }
+
+
+    th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: center;
+        background-color: #7E0272;
+        color: white;
+    }
     .cancelbtn {
         width: 100%;
         background-color: #FF914D;
@@ -102,53 +120,63 @@
 <br />
 <br />
 
-<button onclick="location.href=('/Categories/Index')" class="cancelbtn">SELECT DONATION CATEGORY</button>
-<a asp-action="Create"><button value="Create">DONATE</button></a>
+<a asp-action="Create"><button class="cancelbtn" value="Create">DONATE</button></a>
 
 <table class="table">
     <thead>
         <tr>
-            <th style="color: #7E0272 ">
+            <th >
                 CATEGORY
             </th>
-            <th style="color: #7E0272 ">
+            <th >
                 NUMBER OF ITEMS
             </th>
-            <th style="color: #7E0272 ">
+            <th >
                 DESCRIPTION
             </th>
-            <th style="color: #7E0272 ">
+            <th >
                 DONATION DATE
             </th>
-            <th style="color: #7E0272 ">
+            <th >
                 DONOR
             </th>
             <th></th>
+            <th></th>
+
+
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                <td style="vertical-align: middle;">
                     @Html.DisplayFor(modelItem => item.Goods_Category)
                 </td>
-                <td>
+                <td style="vertical-align: middle;">
                     @Html.DisplayFor(modelItem => item.Num_items)
                 </td>
-                <td>
+                <td style="vertical-align: middle;">
                     @Html.DisplayFor(modelItem => item.Goods_Description)
                 </td>
-                <td>
+                <td style="vertical-align: middle;">
                     @Html.DisplayFor(modelItem => item.DonationDate)
                 </td>
-                <td>
+                <td style="vertical-align: middle;">
                     @Html.DisplayFor(modelItem => item.Goods_Donor)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.GoodsID">Donation Details</a>
+                    <a asp-action="Details" asp-route-id="@item.GoodsID"><button class="w3-small w3-padding-small" style="height:40px; font-size:13px">DETAILS</button></a>
                 </td>
+                <td>
+                    <a asp-action="AllocateGoods" asp-route-id="@item.GoodsID"><button  value="AllocateGoods" class="w3-small w3-padding-small" style="height:40px; font-size:13px"><b>SELECT</b></button></a>
+
+                </td>
+
             </tr>
         }
     </tbody>
 </table>
+<br />
+<br />
+<br />

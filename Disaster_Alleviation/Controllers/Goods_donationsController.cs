@@ -43,14 +43,16 @@ namespace Disaster_Alleviation.Controllers
                 return NotFound();
             }
 
+
             return View(goods_donations);
         }
 
         // GET: Goods_donations/Create
         public IActionResult Create()
         {
-           
-            ViewBag.Category = HttpContext.Session.GetString("Categories");
+            var list = _context.Goods_donations.Select(x => x.Goods_Category).Distinct().ToList();
+            ViewData["list"] = list;
+            //ViewBag.Category = HttpContext.Session.GetString("Categories");
             return View();
         }
          
@@ -71,8 +73,10 @@ namespace Disaster_Alleviation.Controllers
                     goods_donations.Goods_Donor = "Anonymous";
                 }
 
-                string category = HttpContext.Session.GetString("Categories");
-                goods_donations.Goods_Category = category;
+               
+
+                //string category = HttpContext.Session.GetString("Goods_Category");
+                //goods_donations.Goods_Category = category;
 
 
                 _context.Add(goods_donations);
@@ -129,6 +133,64 @@ namespace Disaster_Alleviation.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
+            }
+            return View(goods_donations);
+        }
+        // GET: Goods_donations/Edit/5
+        public async Task<IActionResult> AllocateGoods(int? id)
+        {
+            ViewBag.DisasterID = HttpContext.Session.GetString("DisasterID");
+            ViewBag.DisasterName = HttpContext.Session.GetString("DisasterName");
+            ViewBag.Location= HttpContext.Session.GetString("Location");
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var goods_donations = await _context.Goods_donations.FindAsync(id);
+            if (goods_donations == null)
+            {
+                return NotFound();
+            }
+            return View(goods_donations);
+        }
+
+        // POST: Goods_donations/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AllocateGoods(int id, [Bind("DisasterID,DisasterName, Location, GoodsID,Goods_Category,Num_items,Goods_Description,DonationDate,Goods_Donor")] Goods_donations goods_donations)
+        {
+            if (id != goods_donations.GoodsID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                
+                try
+                {
+                    _context.Update(goods_donations);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!Goods_donationsExists(goods_donations.GoodsID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+
+               
+                
             }
             return View(goods_donations);
         }

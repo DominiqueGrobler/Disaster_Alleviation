@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Disaster_Alleviation.Models
 {
-    public class Monetary_donations
+    public class AllocateMoney
     {
         [Key]
         [Required(ErrorMessage = "Please enter your Monetary ID.")]
@@ -17,7 +17,7 @@ namespace Disaster_Alleviation.Models
         [Required(ErrorMessage = "Please enter the date.")]
         [DataType(DataType.Date)]
         public DateTime DonationDate { get; set; }
-        
-        public string Donor{ get; set; }
+
+        public string Donor { get; set; }
     }
 }

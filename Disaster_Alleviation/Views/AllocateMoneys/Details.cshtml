@@ -1,8 +1,9 @@
-﻿@model Disaster_Alleviation.Models.Monetary_donations
+﻿@model Disaster_Alleviation.Models.AllocateMoney
 
 @{
     ViewData["Title"] = "Details";
 }
+
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -254,8 +255,8 @@
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
-                <h1 class="mb-2 bread" style="text-align:center;">Monetary Donation Details</h1>
-                <p class="breadcrumbs"><span class="mr-2"><a asp-action="Index"> Home > <i class="ion-ios-arrow-forward"></i></a></span></p>
+                <h1 class="mb-2 bread" style="text-align:center;">Allocate Goods Details</h1>
+                <p class="breadcrumbs"><span class="mr-2"><a asp-action="Index"> Allocate Goods List > <i class="ion-ios-arrow-forward"></i></a></span></p>
             </div>
         </div>
     </div>
@@ -275,9 +276,7 @@
                 DONOR
             </th>
 
-            <th></th>
-            <th></th>
-            <th></th>
+
 
         </tr>
     </thead>
@@ -291,18 +290,8 @@
         <td style="vertical-align: middle;">
             @Html.DisplayFor(model => model.Donor)
         </td>
-<td>
-    <a asp-action="Edit" asp-route-id="@Model.MonetaryID"><button value="Edit" class="w3-small w3-padding-small" style="height:40px;"><b>EDIT </b></button></a>
-</td>
-<td>
-            <a asp-action="Delete" asp-route-id="@Model.MonetaryID"><button value="Delete" class="w3-small w3-padding-small" style="height:40px;"><i class="fa fa-trash"></i></button></a>
-</td>
-<td>
-           
-    </table>
+</tr>
+</table>
 <div>
-    <a asp-action="Index"><button value="Index" class="cancelbtn">BACK TO DONATION LIST</button></a>
+    <a asp-action="Index"><button value="Index">BACK TO DONATION LIST</button></a>
 </div>
-<br />
-<br />
-<br />

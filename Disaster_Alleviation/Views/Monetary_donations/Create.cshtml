@@ -7,6 +7,8 @@
     body {
         font-family: Arial, Helvetica, sans-serif;
         background-color: #E5E9ED;
+        color: #FF7017;
+        font-weight: bold;
     }
     /* Set a style for all buttons */
     button {
@@ -86,6 +88,12 @@
                         .hero-wrap.hero-wrap-2 .slider-text .breadcrumbs span a {
                             color: #fff;
                         }
+
+    .box {
+        float: left;
+        width: 50%; /* three boxes (use 25% for four, and 50% for two, etc) */
+        padding-right: 40px;
+    }
 </style>
 <section class="hero-wrap hero-wrap-2" style="background-image: url('/Images/head.png');">
     <div class="container">
@@ -103,30 +111,33 @@
 
 <form asp-action="Create">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="form-group">
+    <div class="form-group box">
         <label asp-for="Amount" class="control-label"></label>
         <input asp-for="Amount" class="form-control" />
         <span asp-validation-for="Amount" class="text-danger"></span>
     </div>
-    <div class="form-group">
+    <div class="form-group box">
         <label asp-for="DonationDate" class="control-label">Donation Date</label>
         <input asp-for="DonationDate" class="form-control" />
         <span asp-validation-for="DonationDate" class="text-danger"></span>
     </div>
-    <div class="form-group">
+    <div class="form-group " style="padding-right: 40px;">
         <label asp-for="Donor" class="control-label">Donor Name (Not Required)</label>
         <input asp-for="Donor" class="form-control" />
         <span asp-validation-for="Donor" class="text-danger"></span>
     </div>
-    <div class="form-group">
+    <div class="form-group box">
         <button type="submit" value="Create">DONATE</button>
     </div>
 
 </form>
 
-<div>
+<div class="form-group box">
     <a asp-action="Index"><button class="cancelbtn" value="Create">BACK TO DONOTION LIST</button></a>
 </div>
+<br />
+<br />
+<br />
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

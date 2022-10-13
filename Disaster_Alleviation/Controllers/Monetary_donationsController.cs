@@ -124,6 +124,59 @@ namespace Disaster_Alleviation.Controllers
             return View(monetary_donations);
         }
 
+        // GET: Monetary_donations/Edit/5
+        public async Task<IActionResult> AllocateMoney(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var monetary_donations = await _context.Monetary_donations.FindAsync(id);
+            if (monetary_donations == null)
+            {
+                return NotFound();
+            }
+            return View(monetary_donations);
+        }
+
+        // POST: Monetary_donations/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AllocateMoney(int id, [Bind("MonetaryID,Amount,DonationDate,Donor")] Monetary_donations monetary_donations)
+        {
+            if (id != monetary_donations.MonetaryID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                string disaster = HttpContext.Session.GetString("DisasterID");
+                string disasterName = HttpContext.Session.GetString("DisasterName");
+                string disasterLocation = HttpContext.Session.GetString("Location");
+                try
+                {
+                    _context.Update(monetary_donations);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!Monetary_donationsExists(monetary_donations.MonetaryID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(monetary_donations);
+        }
         // GET: Monetary_donations/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

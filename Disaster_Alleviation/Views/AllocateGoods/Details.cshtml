@@ -1,4 +1,4 @@
-﻿@model Disaster_Alleviation.Models.Monetary_donations
+﻿@model Disaster_Alleviation.Models.AllocateGoods
 
 @{
     ViewData["Title"] = "Details";
@@ -13,14 +13,17 @@
     }
     /* Set a style for all buttons */
     button {
-        background-color: #7E0272;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
         color: white;
-        padding: 14px 20px;
+        padding: 100px 20px;
         margin: 8px 0;
         border: none;
         cursor: pointer;
-        width: 100%;
-        border-radius: 4px;
+        width: 250px;
+        height: 250px;
+        border-radius: 8px;
     }
 
         button:hover {
@@ -254,7 +257,7 @@
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
-                <h1 class="mb-2 bread" style="text-align:center;">Monetary Donation Details</h1>
+                <h1 class="mb-2 bread" style="text-align:center;">Donation Details</h1>
                 <p class="breadcrumbs"><span class="mr-2"><a asp-action="Index"> Home > <i class="ion-ios-arrow-forward"></i></a></span></p>
             </div>
         </div>
@@ -266,7 +269,13 @@
     <thead>
         <tr style="background-color:#E5E9ED">
             <th>
-                AMOUNT
+                CATEGORY
+            </th>
+            <th>
+                NUMBER OF ITEMS
+            </th>
+            <th>
+                DESCRIPTION
             </th>
             <th>
                 DONATION DATE
@@ -277,32 +286,28 @@
 
             <th></th>
             <th></th>
-            <th></th>
 
         </tr>
     </thead>
     <tr>
         <td style="vertical-align: middle;">
-            @Html.DisplayFor(model => model.Amount)
+            @Html.DisplayFor(model => model.Goods_Category)
+        </td>
+        <td style="vertical-align: middle;">
+            @Html.DisplayFor(model => model.Num_items)
+        </td>
+        <td style="vertical-align: middle;">
+            @Html.DisplayFor(model => model.Goods_Description)
         </td>
         <td style="vertical-align: middle;">
             @Html.DisplayFor(model => model.DonationDate)
         </td>
         <td style="vertical-align: middle;">
-            @Html.DisplayFor(model => model.Donor)
+            @Html.DisplayFor(model => model.Goods_Donor)
         </td>
-<td>
-    <a asp-action="Edit" asp-route-id="@Model.MonetaryID"><button value="Edit" class="w3-small w3-padding-small" style="height:40px;"><b>EDIT </b></button></a>
-</td>
-<td>
-            <a asp-action="Delete" asp-route-id="@Model.MonetaryID"><button value="Delete" class="w3-small w3-padding-small" style="height:40px;"><i class="fa fa-trash"></i></button></a>
-</td>
-<td>
-           
-    </table>
+
+</table>
+
 <div>
-    <a asp-action="Index"><button value="Index" class="cancelbtn">BACK TO DONATION LIST</button></a>
+    <a asp-action="Index"><button value="Index">BACK TO DONATION LIST</button></a>
 </div>
-<br />
-<br />
-<br />

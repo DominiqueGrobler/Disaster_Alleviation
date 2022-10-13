@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Disaster_Alleviation.Models
 {
-    public class Goods_donations
+    public class AllocateGoods
     {
         [Key]
         [Required(ErrorMessage = "Please enter your Donation ID.")]
         public int GoodsID { get; set; }
-        public string Goods_Category{ get; set; }
+        public string Goods_Category { get; set; }
         [Required(ErrorMessage = "Please enter number of items")]
-        public int Num_items{ get; set; }
+        public int Num_items { get; set; }
         [Required(ErrorMessage = "Please enter description of each item.")]
         public string Goods_Description { get; set; }
         [DataType(DataType.Date)]

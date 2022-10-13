@@ -55,6 +55,7 @@ namespace Disaster_Alleviation.Controllers
         // GET: Categories/Create
         public IActionResult Create()
         {
+            
             return View();
         }
 
