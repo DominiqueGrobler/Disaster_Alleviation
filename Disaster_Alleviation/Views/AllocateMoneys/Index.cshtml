@@ -124,6 +124,15 @@
     <thead>
         <tr>
             <th>
+                DISASTER ID
+            </th>
+            <th>
+                DISASTER NAME
+            </th>
+            <th>
+                LOCATION
+            </th>
+            <th>
                 AMOUNT
             </th>
             <th>
@@ -141,6 +150,15 @@
         {
             <tr>
                 <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.DisasterID)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.DisasterName)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td style="vertical-align: middle;">
                     R @Html.DisplayFor(modelItem => item.Amount)
                 </td>
                 <td style="vertical-align: middle;">
@@ -150,15 +168,30 @@
                     @Html.DisplayFor(modelItem => item.Donor)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.MonetaryID"><button value="Details" class="w3-small w3-padding-small" style="height:40px; font-size:13px"><b>DETAILS</b></button></a>
+                    <a asp-action="Details" asp-route-id="@item.AllocateM"><button value="Details" class="w3-small w3-padding-small" style="height:40px; font-size:13px"><b>DETAILS</b></button></a>
 
                 </td>
 
                 <td>
-                    <a asp-action="Delete" asp-route-id="@item.MonetaryID"><button value="Delete" class="w3-small w3-padding-small" style="height:40px;"><i class="fa fa-trash"></i></button></a>
+                    <a asp-action="Delete" asp-route-id="@item.AllocateM"><button value="Delete" class="w3-small w3-padding-small" style="height:40px;"><i class="fa fa-trash"></i></button></a>
                 </td>
             </tr>
         }
     </tbody>
-</table>
+    <tfoot>
+        <tr style="background-color:#7E0272; color:white; font-weight: bold;">
 
+            <td>TOTAL MONEY ALLOCATED: R @Model.Sum(i => i.Amount)</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tfoot>
+</table>
+<br />
+<br />
+<br />

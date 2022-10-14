@@ -23,6 +23,7 @@
         cursor: pointer;
         width: 100%;
         border-radius: 4px;
+        font-weight: bold;
     }
 
         button:hover {
@@ -114,7 +115,7 @@
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
                 <h1 class="mb-2 bread" style="text-align:center;">Allocated Goods Donation</h1>
-                <p class="breadcrumbs"><span class="mr-2"><a onclick="location.href=('/Disasters/Index')"> Disaster > <i class="ion-ios-arrow-forward"></i></a></span></p>
+                <p class="breadcrumbs"><span class="mr-2"><a onclick="location.href=('/Disasters/Index')"> <b>Disasters</b>> <i class="ion-ios-arrow-forward"></i></a></span></p>
             </div>
         </div>
     </div>
@@ -122,11 +123,19 @@
 <br />
 <br />
 
-<a asp-action="Create"><button class="cancelbtn" value="Create">DONATE</button></a>
 
 <table class="table">
     <thead>
         <tr>
+            <th>
+                DISASTER ID
+            </th>
+            <th>
+                DISASTER NAME
+            </th>
+            <th>
+                LOCATION
+            </th>
             <th>
                 CATEGORY
             </th>
@@ -143,12 +152,22 @@
                 DONOR
             </th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.DisasterID)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.DisasterName)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
                 <td style="vertical-align: middle;">
                     @Html.DisplayFor(modelItem => item.Goods_Category)
                 </td>
@@ -165,15 +184,17 @@
                     @Html.DisplayFor(modelItem => item.Goods_Donor)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.GoodsID"><button class="w3-small w3-padding-small" style="height:40px; font-size:13px">DETAILS</button></a>
+                    <a asp-action="Details" asp-route-id="@item.AllocateG"><button class="w3-small w3-padding-small" style="height:40px; font-size:13px">DETAILS</button></a>
                     </td>
                      <td>
-            <a asp-action="Delete" asp-route-id="@item.GoodsID"><button value="Delete" class="w3-small w3-padding-small" style="height:40px;"><i class="fa fa-trash"></i></button></a>
+                    <a asp-action="Delete" asp-route-id="@item.AllocateG"><button value="Delete" class="w3-small w3-padding-small" style="height:40px;"><i class="fa fa-trash"></i></button></a>
         </td>
 
             </tr>
         }
     </tbody>
 </table>
-
+<br />
+<br />
+<br />
 

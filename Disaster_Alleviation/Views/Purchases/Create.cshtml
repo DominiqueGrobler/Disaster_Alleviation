@@ -1,0 +1,167 @@
+﻿@model Disaster_Alleviation.Models.Purchase
+
+@{
+    ViewData["Title"] = "Create";
+    List<string> list = (List<string>)ViewData["list"];
+}
+
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #E5E9ED;
+        color: #FF7017;
+        font-weight: bold;
+    }
+    /* Set a style for all buttons */
+    button {
+        background-color: #A264B4;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        border-radius: 4px;
+    }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+    .cancelbtn {
+        width: 100%;
+        background-color: #FF914D;
+    }
+
+    a {
+        color: #FF914D;
+        background-color: transparent;
+    }
+
+        a:hover {
+            color: #FF7017;
+            background-color: transparent;
+        }
+
+    .hero-wrap {
+        width: 100%;
+        height: 100%;
+        position: inherit;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        position: relative;
+    }
+
+        .hero-wrap .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            content: '';
+            opacity: .3;
+            background: #f1453d;
+        }
+
+        .hero-wrap.hero-wrap-2 {
+            height: 300px;
+        }
+
+            .hero-wrap.hero-wrap-2 .slider-text {
+                height: 300px;
+            }
+
+                .hero-wrap.hero-wrap-2 .slider-text .bread {
+                    font-weight: 900;
+                    color: #fff;
+                }
+
+                .hero-wrap.hero-wrap-2 .slider-text .breadcrumbs {
+                    text-transform: uppercase;
+                    font-size: 13px;
+                    letter-spacing: 1px;
+                }
+
+                    .hero-wrap.hero-wrap-2 .slider-text .breadcrumbs span {
+                        color: #fff;
+                        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+                    }
+
+                        .hero-wrap.hero-wrap-2 .slider-text .breadcrumbs span a {
+                            color: #fff;
+                        }
+
+    .box {
+        float: left;
+        width: 50%; /* three boxes (use 25% for four, and 50% for two, etc) */
+        padding-right: 40px;
+    }
+</style>
+<section class="hero-wrap hero-wrap-2" style="background-image: url('/Images/head.png');">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <h1 class="mb-2 bread" style="text-align:center;">Purchase Goods</h1>
+                <p class="breadcrumbs"><span class="mr-2"><a asp-action="Index"> Home > <i class="ion-ios-arrow-forward"></i></a></span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<br />
+<br />
+
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group box">
+        <label asp-for="Goods_Category" class="control-label">Category</label>
+        <input asp-for="Goods_Category" class="form-control" list="datalistID" />
+        <datalist id="datalistID">
+            @foreach (var item in list)
+            {
+                <option value="@item"></option>
+            }
+        </datalist>
+        @* @ViewBag.Category*@
+        <span asp-validation-for="Goods_Category" class="text-danger"></span>
+    </div>
+            <div class="form-group box">
+                <label asp-for="Num_items" class="control-label">Number of items</label>
+                <input asp-for="Num_items" class="form-control" />
+                <span asp-validation-for="Num_items" class="text-danger"></span>
+            </div>
+            <div class="form-group box">
+                <label asp-for="Goods_Description" class="control-label">Description</label>
+                <input asp-for="Goods_Description" class="form-control" />
+                <span asp-validation-for="Goods_Description" class="text-danger"></span>
+            </div>
+            <div class="form-group box">
+                <label asp-for="PurchaseDate" class="control-label">Date</label>
+                <input asp-for="PurchaseDate" class="form-control" />
+                <span asp-validation-for="PurchaseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group ">
+                <label asp-for="Amount" class="control-label"></label>
+                <input asp-for="Amount" class="form-control" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+
+            <div class="form-group box">
+                <button type="submit" value="Create">PURCHASE</button>
+            </div>
+            <div class="form-group box">
+                <a asp-action="Index"><button value="Index">BACK TO PURCHASES</button></a>
+            </div>
+        </form>
+
+<br />
+<br />
+<br />
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

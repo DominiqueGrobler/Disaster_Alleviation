@@ -35,6 +35,8 @@ namespace Disaster_Alleviation
             options.UseSqlServer(Configuration.GetConnectionString("online")));
             services.AddDbContext<Categories_Context>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("online")));
+            services.AddDbContext<Purchase_Context>(options =>
+           options.UseSqlServer(Configuration.GetConnectionString("online")));
             services.AddMvc();
             services.AddDistributedMemoryCache();
             services.AddSession();

@@ -22,6 +22,7 @@
         cursor: pointer;
         width: 100%;
         border-radius: 4px;
+        font-weight: bold;
     }
 
         button:hover {
@@ -169,7 +170,7 @@
                     <a asp-action="Details" asp-route-id="@item.GoodsID"><button class="w3-small w3-padding-small" style="height:40px; font-size:13px">DETAILS</button></a>
                 </td>
                 <td>
-                    <a asp-action="AllocateGoods" asp-route-id="@item.GoodsID"><button  value="AllocateGoods" class="w3-small w3-padding-small" style="height:40px; font-size:13px"><b>SELECT</b></button></a>
+                    <a asp-action="AllocateGoods" asp-route-id="@item.GoodsID"><button  value="AllocateGoods" class="w3-small w3-padding-small" style="height:40px; font-size:13px"><b>ALLOCATE</b></button></a>
 
                 </td>
 

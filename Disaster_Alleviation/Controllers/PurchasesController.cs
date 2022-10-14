@@ -6,38 +6,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Disaster_Alleviation.Models;
-using Microsoft.AspNetCore.Http;
 
 namespace Disaster_Alleviation.Controllers
 {
-    public class DisastersController : Controller
+    public class PurchasesController : Controller
     {
-        private readonly Disaster_Context _context;
+        private readonly Purchase_Context _context;
 
-        public DisastersController(Disaster_Context context)
+        public PurchasesController(Purchase_Context context)
         {
             _context = context;
         }
 
-        // GET: Disasters
-        //code attribution
-        //this method was taken DotNetTricks
-        //https://www.dotnettricks.com/learn/mvc/return-view-vs-return-redirecttoaction-vs-return-redirect-vs-return-redirecttoroute
-        //Shailendra Chauhan
-        //https://www.dotnettricks.com/mentors/shailendra-chauhan
-        //(Chauhan, 2022)
+        // GET: Purchases
         public async Task<IActionResult> Index()
         {
-            if (HttpContext.Session.GetString("LoggedIn") != "Yes")
-            {
-                return Redirect("/Users/Login");
-            }
-
-           
-            return View(await _context.Disaster.ToListAsync());
+             
+            return View(await _context.Purchase.ToListAsync());
         }
 
-        // GET: Disasters/Details/5
+        // GET: Purchases/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,45 +33,41 @@ namespace Disaster_Alleviation.Controllers
                 return NotFound();
             }
 
-            var disaster = await _context.Disaster
-                .FirstOrDefaultAsync(m => m.DisasterID == id);
-            if (disaster == null)
+            var purchase = await _context.Purchase
+                .FirstOrDefaultAsync(m => m.PurchaseID == id);
+            if (purchase == null)
             {
                 return NotFound();
             }
 
-
-            HttpContext.Session.SetString("DisasterID", disaster.DisasterID.ToString());
-            HttpContext.Session.SetString("DisasterName", disaster.DisasterName.ToString());
-            HttpContext.Session.SetString("Location", disaster.Location.ToString());
-            return View(disaster);
+            return View(purchase);
         }
 
-        // GET: Disasters/Create
+        // GET: Purchases/Create
         public IActionResult Create()
         {
+            var list = _context.Purchase.Select(x => x.Goods_Category).Distinct().ToList();
+            ViewData["list"] = list;
             return View();
         }
 
-        // POST: Disasters/Create
+        // POST: Purchases/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DisasterID,DisasterName,Location,Description,StartDate,EndDate,AidType, Status")] Disaster disaster)
+        public async Task<IActionResult> Create([Bind("PurchaseID,Goods_Category,Num_items,Goods_Description,PurchaseDate,Amount")] Purchase purchase)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(disaster);
+                _context.Add(purchase);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(disaster);
-
-           
+            return View(purchase);
         }
 
-        // GET: Disasters/Edit/5
+        // GET: Purchases/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -91,22 +75,22 @@ namespace Disaster_Alleviation.Controllers
                 return NotFound();
             }
 
-            var disaster = await _context.Disaster.FindAsync(id);
-            if (disaster == null)
+            var purchase = await _context.Purchase.FindAsync(id);
+            if (purchase == null)
             {
                 return NotFound();
             }
-            return View(disaster);
+            return View(purchase);
         }
 
-        // POST: Disasters/Edit/5
+        // POST: Purchases/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DisasterID,DisasterName,Location,Description,StartDate,EndDate,AidType")] Disaster disaster)
+        public async Task<IActionResult> Edit(int id, [Bind("PurchaseID,Goods_Category,Num_items,Goods_Description,PurchaseDate,Amount")] Purchase purchase)
         {
-            if (id != disaster.DisasterID)
+            if (id != purchase.PurchaseID)
             {
                 return NotFound();
             }
@@ -115,12 +99,12 @@ namespace Disaster_Alleviation.Controllers
             {
                 try
                 {
-                    _context.Update(disaster);
+                    _context.Update(purchase);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DisasterExists(disaster.DisasterID))
+                    if (!PurchaseExists(purchase.PurchaseID))
                     {
                         return NotFound();
                     }
@@ -131,10 +115,10 @@ namespace Disaster_Alleviation.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(disaster);
+            return View(purchase);
         }
 
-        // GET: Disasters/Delete/5
+        // GET: Purchases/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -142,30 +126,30 @@ namespace Disaster_Alleviation.Controllers
                 return NotFound();
             }
 
-            var disaster = await _context.Disaster
-                .FirstOrDefaultAsync(m => m.DisasterID == id);
-            if (disaster == null)
+            var purchase = await _context.Purchase
+                .FirstOrDefaultAsync(m => m.PurchaseID == id);
+            if (purchase == null)
             {
                 return NotFound();
             }
 
-            return View(disaster);
+            return View(purchase);
         }
 
-        // POST: Disasters/Delete/5
+        // POST: Purchases/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var disaster = await _context.Disaster.FindAsync(id);
-            _context.Disaster.Remove(disaster);
+            var purchase = await _context.Purchase.FindAsync(id);
+            _context.Purchase.Remove(purchase);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DisasterExists(int id)
+        private bool PurchaseExists(int id)
         {
-            return _context.Disaster.Any(e => e.DisasterID == id);
+            return _context.Purchase.Any(e => e.PurchaseID == id);
         }
     }
 }

@@ -95,6 +95,7 @@
         width: 100%;
         border-radius: 4px;
         height: 50px;
+        font-weight: bold;
     }
 
         button:hover {
@@ -106,6 +107,7 @@
         width: auto;
         padding: 10px 18px;
         background-color: #FF914D;
+        font-weight: bold;
     }
 
     /* Center the image and position the close button */
@@ -296,7 +298,7 @@
     </table>
 
     <form asp-action="Delete">
-        <input type="hidden" asp-for="GoodsID" />
+        <input type="hidden" asp-for="AllocateG" />
         <button type="submit" value="Delete" class="box cancelbtn"> DELETE</button>
         <a asp-action="Index"><button value="Index" class="box cancelbtn">BACK TO DONATION LIST</button></a>
     </form>

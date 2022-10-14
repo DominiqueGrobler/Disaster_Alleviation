@@ -34,7 +34,7 @@ namespace Disaster_Alleviation.Controllers
             }
 
             var allocateGoods = await _context.AllocateGoods
-                .FirstOrDefaultAsync(m => m.GoodsID == id);
+                .FirstOrDefaultAsync(m => m.AllocateG == id);
             if (allocateGoods == null)
             {
                 return NotFound();
@@ -88,7 +88,7 @@ namespace Disaster_Alleviation.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("GoodsID,Goods_Category,Num_items,Goods_Description,DonationDate,Goods_Donor")] AllocateGoods allocateGoods)
         {
-            if (id != allocateGoods.GoodsID)
+            if (id != allocateGoods.AllocateG)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace Disaster_Alleviation.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AllocateGoodsExists(allocateGoods.GoodsID))
+                    if (!AllocateGoodsExists(allocateGoods.AllocateG))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace Disaster_Alleviation.Controllers
             }
 
             var allocateGoods = await _context.AllocateGoods
-                .FirstOrDefaultAsync(m => m.GoodsID == id);
+                .FirstOrDefaultAsync(m => m.AllocateG == id);
             if (allocateGoods == null)
             {
                 return NotFound();
@@ -147,7 +147,7 @@ namespace Disaster_Alleviation.Controllers
 
         private bool AllocateGoodsExists(int id)
         {
-            return _context.AllocateGoods.Any(e => e.GoodsID == id);
+            return _context.AllocateGoods.Any(e => e.AllocateG == id);
         }
     }
 }

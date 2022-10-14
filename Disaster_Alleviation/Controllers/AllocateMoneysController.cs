@@ -33,7 +33,7 @@ namespace Disaster_Alleviation.Controllers
             }
 
             var allocateMoney = await _context.AllocateMoney
-                .FirstOrDefaultAsync(m => m.MonetaryID == id);
+                .FirstOrDefaultAsync(m => m.AllocateM == id);
             if (allocateMoney == null)
             {
                 return NotFound();
@@ -87,7 +87,7 @@ namespace Disaster_Alleviation.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("MonetaryID,Amount,DonationDate,Donor")] AllocateMoney allocateMoney)
         {
-            if (id != allocateMoney.MonetaryID)
+            if (id != allocateMoney.AllocateM)
             {
                 return NotFound();
             }
@@ -101,7 +101,7 @@ namespace Disaster_Alleviation.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AllocateMoneyExists(allocateMoney.MonetaryID))
+                    if (!AllocateMoneyExists(allocateMoney.AllocateM))
                     {
                         return NotFound();
                     }
@@ -124,7 +124,7 @@ namespace Disaster_Alleviation.Controllers
             }
 
             var allocateMoney = await _context.AllocateMoney
-                .FirstOrDefaultAsync(m => m.MonetaryID == id);
+                .FirstOrDefaultAsync(m => m.AllocateM == id);
             if (allocateMoney == null)
             {
                 return NotFound();
@@ -146,7 +146,7 @@ namespace Disaster_Alleviation.Controllers
 
         private bool AllocateMoneyExists(int id)
         {
-            return _context.AllocateMoney.Any(e => e.MonetaryID == id);
+            return _context.AllocateMoney.Any(e => e.AllocateM == id);
         }
     }
 }

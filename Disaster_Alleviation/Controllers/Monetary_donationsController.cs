@@ -127,6 +127,11 @@ namespace Disaster_Alleviation.Controllers
         // GET: Monetary_donations/Edit/5
         public async Task<IActionResult> AllocateMoney(int? id)
         {
+            ViewBag.DisasterID = HttpContext.Session.GetString("DisasterID");
+            ViewBag.DisasterName = HttpContext.Session.GetString("DisasterName");
+            ViewBag.Location = HttpContext.Session.GetString("Location");
+            HttpContext.Session.SetString("GoodsID", id.ToString());
+
             if (id == null)
             {
                 return NotFound();
@@ -145,21 +150,21 @@ namespace Disaster_Alleviation.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AllocateMoney(int id, [Bind("MonetaryID,Amount,DonationDate,Donor")] Monetary_donations monetary_donations)
+        public async Task<IActionResult> AllocateMoney(int id, [Bind("AllocateM, DisasterID, DisasterName, Location,Amount,DonationDate,Donor")] AllocateMoney allocateMoney, Monetary_donations monetary_donations)
         {
-            if (id != monetary_donations.MonetaryID)
-            {
-                return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
-                string disaster = HttpContext.Session.GetString("DisasterID");
-                string disasterName = HttpContext.Session.GetString("DisasterName");
-                string disasterLocation = HttpContext.Session.GetString("Location");
                 try
                 {
-                    _context.Update(monetary_donations);
+                    string disasterID = HttpContext.Session.GetString("DisasterID");
+                    allocateMoney.DisasterID = Int32.Parse(disasterID);
+                    string disasterName = HttpContext.Session.GetString("DisasterName");
+                    allocateMoney.DisasterName = disasterName;
+                    string location = HttpContext.Session.GetString("Location");
+                    allocateMoney.Location = location;
+
+                    _context.Add(allocateMoney);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -173,9 +178,18 @@ namespace Disaster_Alleviation.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+
+
+
+                int gID = Int32.Parse(HttpContext.Session.GetString("GoodsID"));
+
+                var Goods_donations = await _context.Monetary_donations
+                 .FirstOrDefaultAsync(m => m.MonetaryID == gID);
+                _context.Monetary_donations.Remove(Goods_donations);
+                await _context.SaveChangesAsync();
+                return Redirect("/AllocateMoneys/Index");
             }
-            return View(monetary_donations);
+            return View(allocateMoney);
         }
         // GET: Monetary_donations/Delete/5
         public async Task<IActionResult> Delete(int? id)

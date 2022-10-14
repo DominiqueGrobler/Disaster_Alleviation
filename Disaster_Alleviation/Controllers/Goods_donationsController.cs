@@ -43,7 +43,6 @@ namespace Disaster_Alleviation.Controllers
                 return NotFound();
             }
 
-
             return View(goods_donations);
         }
 
@@ -72,8 +71,6 @@ namespace Disaster_Alleviation.Controllers
                 {
                     goods_donations.Goods_Donor = "Anonymous";
                 }
-
-               
 
                 //string category = HttpContext.Session.GetString("Goods_Category");
                 //goods_donations.Goods_Category = category;
@@ -142,7 +139,8 @@ namespace Disaster_Alleviation.Controllers
             ViewBag.DisasterID = HttpContext.Session.GetString("DisasterID");
             ViewBag.DisasterName = HttpContext.Session.GetString("DisasterName");
             ViewBag.Location= HttpContext.Session.GetString("Location");
-
+            HttpContext.Session.SetString("GoodsID", id.ToString());
+            
             if (id == null)
             {
                 return NotFound();
@@ -161,19 +159,22 @@ namespace Disaster_Alleviation.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AllocateGoods(int id, [Bind("DisasterID,DisasterName, Location, GoodsID,Goods_Category,Num_items,Goods_Description,DonationDate,Goods_Donor")] Goods_donations goods_donations)
+        public async Task<IActionResult> AllocateGoods(int id, [Bind("AllocateG,DisasterID,DisasterName, Location, Goods_Category,Num_items,Goods_Description,DonationDate,Goods_Donor")] AllocateGoods allocateGoods, Goods_donations goods_donations)
         {
-            if (id != goods_donations.GoodsID)
-            {
-                return NotFound();
-            }
+          
 
             if (ModelState.IsValid)
             {
-                
                 try
                 {
-                    _context.Update(goods_donations);
+                    string disasterID = HttpContext.Session.GetString("DisasterID");
+                    allocateGoods.DisasterID = Int32.Parse(disasterID);
+                    string disasterName = HttpContext.Session.GetString("DisasterName");
+                    allocateGoods.DisasterName = disasterName;
+                    string location = HttpContext.Session.GetString("Location");
+                    allocateGoods.Location = location;
+
+                    _context.Add(allocateGoods);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -187,13 +188,19 @@ namespace Disaster_Alleviation.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
 
-               
-                
+                int gID = Int32.Parse(HttpContext.Session.GetString("GoodsID"));
+
+                var Goods_donations = await _context.Goods_donations
+                 .FirstOrDefaultAsync(m => m.GoodsID == gID);
+                _context.Goods_donations.Remove(Goods_donations);
+                await _context.SaveChangesAsync();
+                return Redirect("/AllocateGoods/Index");
             }
-            return View(goods_donations);
+            return View(allocateGoods);
         }
+            
+        
 
         // GET: Goods_donations/Delete/5
         public async Task<IActionResult> Delete(int? id)
