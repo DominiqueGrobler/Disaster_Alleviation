@@ -22,7 +22,11 @@ namespace Disaster_Alleviation.Controllers
         // GET: Purchases
         public async Task<IActionResult> Index()
         {
-             
+            if (HttpContext.Session.GetString("LoggedIn") != "Yes")
+            {
+                return Redirect("/Users/Login");
+            }
+
             return View(await _context.Purchase.ToListAsync());
         }
 

@@ -243,7 +243,7 @@
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
-                <h1 class="mb-2 bread" style="text-align:center;">Delete Goods Donation</h1>
+                <h1 class="mb-2 bread" style="text-align:center;">Delete Monetary Donation</h1>
                 <p class="breadcrumbs"><span class="mr-2"><a asp-action="Index"> Home > <i class="ion-ios-arrow-forward"></i></a></span></p>
             </div>
         </div>
@@ -283,10 +283,14 @@
 
     </tr>
 </table>
-    
-    <form asp-action="Delete">
+
+<form asp-action="Delete" >
         <input type="hidden" asp-for="MonetaryID" />
-        <button type="submit" value="Delete" class="box cancelbtn"> DELETE</button>
-    <a asp-action="Index"><button value="Index" class="box cancelbtn">BACK TO DONATION LIST</button></a>
+    <div class="form-group box " style="padding-left: 30px;">
+        <button type="submit" value="Delete" class="cancelbtn"> DELETE</button>
+        </div>
+    <div class="form-group box " >
+    <a asp-action="Index"><button value="Index" class="cancelbtn">BACK TO DONATION LIST</button></a>
+    </div>
     </form>
 </div>

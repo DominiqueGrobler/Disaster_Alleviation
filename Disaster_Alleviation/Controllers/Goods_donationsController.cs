@@ -24,7 +24,11 @@ namespace Disaster_Alleviation.Controllers
   
         public async Task<IActionResult> Index()
         {
-            
+            if (HttpContext.Session.GetString("LoggedIn") != "Yes")
+            {
+                return Redirect("/Users/Login");
+            }
+
             return View(await _context.Goods_donations.ToListAsync());
         }
 
