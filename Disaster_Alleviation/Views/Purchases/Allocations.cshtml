@@ -1,12 +1,14 @@
-﻿@model IEnumerable<Disaster_Alleviation.Models.Monetary_donations>
+﻿@model Disaster_Alleviation.Models.Purchase
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Allocations";
 }
+
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
+
     body {
         font-family: Arial, Helvetica, sans-serif;
         background-color: #E5E9ED;
@@ -14,6 +16,7 @@
     }
     /* Set a style for all buttons */
     button {
+        font-weight: bold;
         background-color: #7E0272;
         color: white;
         padding: 14px 20px;
@@ -22,11 +25,7 @@
         cursor: pointer;
         width: 100%;
         border-radius: 4px;
-    }
-     .cancelbtn {
-        width: 100%;
-        padding: 10px 18px;
-        background-color: #FF914D;
+        font-weight: bold;
     }
 
         button:hover {
@@ -47,6 +46,12 @@
         text-align: center;
         background-color: #7E0272;
         color: white;
+    }
+
+    .cancelbtn {
+        width: 100%;
+        background-color: #FF914D;
+        font-weight: bold;
     }
 
     a {
@@ -112,74 +117,20 @@
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
-                <h1 class="mb-2 bread" style="text-align:center;">Monetary Donations</h1>
+                <h1 class="mb-2 bread" style="text-align:center;">Purchases</h1>
                 <p class="breadcrumbs"><span class="mr-2"><a onclick="location.href=('/Home/Index')"> Home > <i class="ion-ios-arrow-forward"></i></a></span></p>
             </div>
         </div>
     </div>
 </section>
-
-
-
 <br />
 <br />
 
-<a asp-action="Create"><button value="Create" class="cancelbtn">DONATE</button></a>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th >
-               AMOUNT
-            </th>
-            <th>
-                DONATION DATE
-            </th>
-            <th >
-                DONOR
-            </th>
-            <th></th>
-            <th></th>
-
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td style="vertical-align: middle;">
-                    R @Html.DisplayFor(modelItem => item.Amount)
-                </td>
-                <td style="vertical-align: middle;">
-                    @Html.DisplayFor(modelItem => item.DonationDate)
-                </td>
-                <td style="vertical-align: middle;">
-                    @Html.DisplayFor(modelItem => item.Donor)
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.MonetaryID"><button value="Details" class="w3-small w3-padding-small" style="height:40px; font-size:13px"><b>DETAILS</b></button></a>
-
-                </td>
-
-                <td>
-                    <a asp-action="AllocateMoney" asp-route-id="@item.MonetaryID"><button value="AllocateMoney" class="w3-small w3-padding-small" style="height:40px; font-size:13px"><b>ALLOCATE</b></button></a>
-
-                </td>
-               
-                </tr>
-                }
-             </tbody>
-                <tfoot>
-        <tr style="background-color:#7E0272; color:white; font-weight: bold;">
-
-                <td>TOTAL: R @Model.Sum(i => i.Amount)</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </tfoot>
-</table>
+<button onclick="location.href=('/AllocateGoods/Index')" style="background-image: url('/Images/6.png');"></button>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+<button onclick="location.href=('/AllocateMoneys/Index')" style="background-image: url('/Images/7.png');"></button>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <button onclick="location.href=('/Purchases/Index')" style="background-image: url('/Images/purchase.png');"></button>
 <br />
 <br />
 <br />

@@ -27,6 +27,8 @@ namespace Disaster_Alleviation.Controllers
                 return Redirect("/Users/Login");
             }
             return View(await _context.Monetary_donations.ToListAsync());
+            //var total= _context.Monetary_donations.Sum(x => x.Amount);
+            //ViewData["total"] = total;
         }
 
         // GET: Monetary_donations/Details/5

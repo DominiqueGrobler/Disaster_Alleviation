@@ -21,6 +21,8 @@ namespace Disaster_Alleviation.Models
         public DateTime PurchaseDate { get; set; }
         [Required(ErrorMessage = "Please enter your purchase amount")]
         public int Amount { get; set; }
-
+        public int DisasterID { get; internal set; }
+        public string DisasterName { get; internal set; }
+        public string Location { get; internal set; }
     }
 }

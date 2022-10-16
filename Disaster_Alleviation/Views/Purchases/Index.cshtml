@@ -12,6 +12,7 @@
     body {
         font-family: Arial, Helvetica, sans-serif;
         background-color: #E5E9ED;
+        font-weight: bold;
     }
     /* Set a style for all buttons */
     button {
@@ -24,6 +25,7 @@
         cursor: pointer;
         width: 100%;
         border-radius: 4px;
+        font-weight: bold;
     }
 
         button:hover {
@@ -124,15 +126,23 @@
 <br />
 <br />
 
-<a asp-action="Create"><button class="cancelbtn" value="Create">PURCHASE</button></a>
 <table class="table">
     <thead>
         <tr>
             <th>
-                GOODS CATEGORY
+                DISASTER ID
             </th>
             <th>
-                NUMBER OF ITEMS
+                DISASTER
+            </th>
+            <th>
+                LOCATION
+            </th>
+            <th>
+                CATEGORY
+            </th>
+            <th>
+                QUANTITY
             </th>
             <th>
                 DESCRIPTION
@@ -149,6 +159,15 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.DisasterID)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.DisasterName)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
                 <td style="vertical-align: middle;">
                 @Html.DisplayFor(modelItem => item.Goods_Category)
             </td>
@@ -174,12 +193,14 @@
     <tfoot>
         <tr style="background-color:#7E0272; color:white; font-weight: bold;">
 
-            <td >Avalaible Money: R @Model.Sum(i => i.Amount)</td>
+            <td colspan="3">AVAILABLE MONEY: R  @Model.Sum(i => i.Amount)</td>
             <td></td>
-            <td >Spent: R @Model.Sum(i => i.Amount)</td>
+            <td >SPENT: R @Model.Sum(i => i.Amount)</td>
             <td></td>
             <td></td>
             <td></td>
+            <td></td>
+            
         </tr>
     </tfoot>
 </table>

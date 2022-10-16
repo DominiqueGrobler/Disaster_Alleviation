@@ -24,7 +24,7 @@ namespace Disaster_Alleviation.Controllers
   
         public async Task<IActionResult> Index()
         {
-
+            
             return View(await _context.Goods_donations.ToListAsync());
         }
 
@@ -133,7 +133,7 @@ namespace Disaster_Alleviation.Controllers
             }
             return View(goods_donations);
         }
-        // GET: Goods_donations/Edit/5
+        // GET: Goods_donations/Allocate Goods
         public async Task<IActionResult> AllocateGoods(int? id)
         {
             ViewBag.DisasterID = HttpContext.Session.GetString("DisasterID");
@@ -154,7 +154,7 @@ namespace Disaster_Alleviation.Controllers
             return View(goods_donations);
         }
 
-        // POST: Goods_donations/Edit/5
+        // POST: Goods_donations/Allocate Goods
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]

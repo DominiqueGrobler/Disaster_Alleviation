@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Disaster_Alleviation.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Disaster_Alleviation.Controllers
 {
@@ -46,6 +47,9 @@ namespace Disaster_Alleviation.Controllers
         // GET: Purchases/Create
         public IActionResult Create()
         {
+            ViewBag.DisasterID = HttpContext.Session.GetString("DisasterID");
+            ViewBag.DisasterName = HttpContext.Session.GetString("DisasterName");
+            ViewBag.Location = HttpContext.Session.GetString("Location");
             var list = _context.Purchase.Select(x => x.Goods_Category).Distinct().ToList();
             ViewData["list"] = list;
             return View();
@@ -56,10 +60,17 @@ namespace Disaster_Alleviation.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PurchaseID,Goods_Category,Num_items,Goods_Description,PurchaseDate,Amount")] Purchase purchase)
+        public async Task<IActionResult> Create([Bind("PurchaseID,DisasterID, DisasterName, Location,Goods_Category,Num_items,Goods_Description,PurchaseDate,Amount")] Purchase purchase)
         {
             if (ModelState.IsValid)
             {
+                string disasterID = HttpContext.Session.GetString("DisasterID");
+                purchase.DisasterID = Int32.Parse(disasterID);
+                string disasterName = HttpContext.Session.GetString("DisasterName");
+                purchase.DisasterName = disasterName;
+                string location = HttpContext.Session.GetString("Location");
+                purchase.Location = location;
+
                 _context.Add(purchase);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -99,6 +110,63 @@ namespace Disaster_Alleviation.Controllers
             {
                 try
                 {
+                    _context.Update(purchase);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PurchaseExists(purchase.PurchaseID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(purchase);
+        }
+        // GET: Purchases/Allocate
+        public async Task<IActionResult> AllocatePurchases(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var purchase = await _context.Purchase.FindAsync(id);
+            if (purchase == null)
+            {
+                return NotFound();
+            }
+            return View(purchase);
+        }
+
+        // POST: Purchases/Allocate
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AllocatePurchases(int id, [Bind("PurchaseID, DisasterID, DisasterName, Location, Goods_Category,Num_items,Goods_Description,PurchaseDate,Amount")]  Purchase purchase)
+        {
+            if (id != purchase.PurchaseID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    string disasterID = HttpContext.Session.GetString("DisasterID");
+                    purchase.DisasterID = Int32.Parse(disasterID);
+                    string disasterName = HttpContext.Session.GetString("DisasterName");
+                    purchase.DisasterName = disasterName;
+                    string location = HttpContext.Session.GetString("Location");
+                    purchase.Location = location;
+
                     _context.Update(purchase);
                     await _context.SaveChangesAsync();
                 }
