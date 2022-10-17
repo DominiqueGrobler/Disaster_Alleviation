@@ -13,10 +13,12 @@ namespace Disaster_Alleviation.Controllers
     public class PurchasesController : Controller
     {
         private readonly Purchase_Context _context;
+        private readonly Monetary_donations_Context _Mcontext;
 
-        public PurchasesController(Purchase_Context context)
+        public PurchasesController(Purchase_Context context, Monetary_donations_Context Mcontext)
         {
             _context = context;
+            _Mcontext = Mcontext;
         }
 
         // GET: Purchases
@@ -26,7 +28,16 @@ namespace Disaster_Alleviation.Controllers
             {
                 return Redirect("/Users/Login");
             }
+            var purchaseTotal = _context.Purchase.Where(x => x.Amount >= 0).Sum(y => y.Amount);
+            ViewBag.purchaseTotal = purchaseTotal;
 
+            var total = _Mcontext.Monetary_donations.Where(x => x.Amount >= 0).Sum(y => y.Amount);
+            ViewBag.Total = total;
+            ViewBag.Left = total - purchaseTotal;
+            if(purchaseTotal >= total)
+            {
+                ViewBag.Warning = "WARNING - you don't have enough funds to purchase goods";
+            }
             return View(await _context.Purchase.ToListAsync());
         }
 

@@ -185,7 +185,7 @@
                 R @Html.DisplayFor(modelItem => item.Amount)
             </td>
              <td>
-                    <a asp-action="Details" asp-route-id="@item.PurchaseID"><button class="w3-small w3-padding-small" style="height:40px; font-size:13px">DETAILS</button></a>
+                    <a asp-action="Details" asp-route-id="@item.PurchaseID"><button class="w3-small w3-padding-small" style="height:40px; font-size:13px"><b>DETAILS</b></button></a>
                 </td>
         </tr>
 }
@@ -193,9 +193,9 @@
     <tfoot>
         <tr style="background-color:#7E0272; color:white; font-weight: bold;">
 
-            <td colspan="3">AVAILABLE MONEY: R  @Model.Sum(i => i.Amount)</td>
+            <td colspan="3">AVAILABLE MONEY: R  @ViewBag.Left </td>
             <td></td>
-            <td >SPENT: R @Model.Sum(i => i.Amount)</td>
+            <td >SPENT: R @ViewBag.purchaseTotal</td>
             <td></td>
             <td></td>
             <td></td>

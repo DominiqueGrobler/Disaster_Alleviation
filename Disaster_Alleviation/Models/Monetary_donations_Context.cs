@@ -16,4 +16,5 @@ namespace Disaster_Alleviation.Models
         public DbSet<Monetary_donations> Monetary_donations { get; set; }
         public DbSet<AllocateMoney> AllocateMoney { get; set; }
     }
+
 }

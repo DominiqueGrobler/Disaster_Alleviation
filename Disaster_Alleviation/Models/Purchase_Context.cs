@@ -14,6 +14,7 @@ namespace Disaster_Alleviation.Models
 
             }
             public DbSet<Purchase> Purchase { get; set; }
-        }
+       
+    }
     
 }
