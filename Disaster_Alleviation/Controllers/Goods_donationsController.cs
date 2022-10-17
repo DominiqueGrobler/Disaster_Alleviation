@@ -24,6 +24,10 @@ namespace Disaster_Alleviation.Controllers
   
         public async Task<IActionResult> Index()
         {
+            if (HttpContext.Session.GetString("LoggedIn") != "Yes")
+            {
+                return Redirect("/Users/Login");
+            }
 
             return View(await _context.Goods_donations.ToListAsync());
         }
@@ -49,8 +53,9 @@ namespace Disaster_Alleviation.Controllers
         // GET: Goods_donations/Create
         public IActionResult Create()
         {
-           
-            ViewBag.Category = HttpContext.Session.GetString("Categories");
+            var list = _context.Goods_donations.Select(x => x.Goods_Category).Distinct().ToList();
+            ViewData["list"] = list;
+            //ViewBag.Category = HttpContext.Session.GetString("Categories");
             return View();
         }
          
@@ -71,8 +76,8 @@ namespace Disaster_Alleviation.Controllers
                     goods_donations.Goods_Donor = "Anonymous";
                 }
 
-                string category = HttpContext.Session.GetString("Categories");
-                goods_donations.Goods_Category = category;
+                //string category = HttpContext.Session.GetString("Goods_Category");
+                //goods_donations.Goods_Category = category;
 
 
                 _context.Add(goods_donations);
@@ -132,6 +137,74 @@ namespace Disaster_Alleviation.Controllers
             }
             return View(goods_donations);
         }
+        // GET: Goods_donations/Allocate Goods
+        public async Task<IActionResult> AllocateGoods(int? id)
+        {
+            ViewBag.DisasterID = HttpContext.Session.GetString("DisasterID");
+            ViewBag.DisasterName = HttpContext.Session.GetString("DisasterName");
+            ViewBag.Location= HttpContext.Session.GetString("Location");
+            HttpContext.Session.SetString("GoodsID", id.ToString());
+            
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var goods_donations = await _context.Goods_donations.FindAsync(id);
+            if (goods_donations == null)
+            {
+                return NotFound();
+            }
+            return View(goods_donations);
+        }
+
+        // POST: Goods_donations/Allocate Goods
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AllocateGoods(int id, [Bind("AllocateG,DisasterID,DisasterName, Location, Goods_Category,Num_items,Goods_Description,DonationDate,Goods_Donor")] AllocateGoods allocateGoods, Goods_donations goods_donations)
+        {
+          
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    string disasterID = HttpContext.Session.GetString("DisasterID");
+                    allocateGoods.DisasterID = Int32.Parse(disasterID);
+                    string disasterName = HttpContext.Session.GetString("DisasterName");
+                    allocateGoods.DisasterName = disasterName;
+                    string location = HttpContext.Session.GetString("Location");
+                    allocateGoods.Location = location;
+
+                    _context.Add(allocateGoods);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!Goods_donationsExists(goods_donations.GoodsID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+                int gID = Int32.Parse(HttpContext.Session.GetString("GoodsID"));
+
+                var Goods_donations = await _context.Goods_donations
+                 .FirstOrDefaultAsync(m => m.GoodsID == gID);
+                _context.Goods_donations.Remove(Goods_donations);
+                await _context.SaveChangesAsync();
+                return Redirect("/AllocateGoods/Index");
+            }
+            return View(allocateGoods);
+        }
+            
+        
 
         // GET: Goods_donations/Delete/5
         public async Task<IActionResult> Delete(int? id)

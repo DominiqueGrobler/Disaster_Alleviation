@@ -26,7 +26,11 @@ namespace Disaster_Alleviation.Controllers
             {
                 return Redirect("/Users/Login");
             }
+            var total = _context.Monetary_donations.Where(x => x.Amount >= 0).Sum(y => y.Amount);
+            ViewBag.Total = total;
             return View(await _context.Monetary_donations.ToListAsync());
+            //var total= _context.Monetary_donations.Sum(x => x.Amount);
+            //ViewData["total"] = total;
         }
 
         // GET: Monetary_donations/Details/5
@@ -124,6 +128,73 @@ namespace Disaster_Alleviation.Controllers
             return View(monetary_donations);
         }
 
+        // GET: Monetary_donations/Edit/5
+        public async Task<IActionResult> AllocateMoney(int? id)
+        {
+            ViewBag.DisasterID = HttpContext.Session.GetString("DisasterID");
+            ViewBag.DisasterName = HttpContext.Session.GetString("DisasterName");
+            ViewBag.Location = HttpContext.Session.GetString("Location");
+            HttpContext.Session.SetString("GoodsID", id.ToString());
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var monetary_donations = await _context.Monetary_donations.FindAsync(id);
+            if (monetary_donations == null)
+            {
+                return NotFound();
+            }
+            return View(monetary_donations);
+        }
+
+        // POST: Monetary_donations/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AllocateMoney(int id, [Bind("AllocateM, DisasterID, DisasterName, Location,Amount,DonationDate,Donor")] AllocateMoney allocateMoney, Monetary_donations monetary_donations)
+        {
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    string disasterID = HttpContext.Session.GetString("DisasterID");
+                    allocateMoney.DisasterID = Int32.Parse(disasterID);
+                    string disasterName = HttpContext.Session.GetString("DisasterName");
+                    allocateMoney.DisasterName = disasterName;
+                    string location = HttpContext.Session.GetString("Location");
+                    allocateMoney.Location = location;
+
+                    _context.Add(allocateMoney);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!Monetary_donationsExists(monetary_donations.MonetaryID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+
+
+                int gID = Int32.Parse(HttpContext.Session.GetString("GoodsID"));
+
+                var Goods_donations = await _context.Monetary_donations
+                 .FirstOrDefaultAsync(m => m.MonetaryID == gID);
+                _context.Monetary_donations.Remove(Goods_donations);
+                await _context.SaveChangesAsync();
+                return Redirect("/AllocateMoneys/Index");
+            }
+            return View(allocateMoney);
+        }
         // GET: Monetary_donations/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

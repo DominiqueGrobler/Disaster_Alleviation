@@ -14,5 +14,6 @@ namespace Disaster_Alleviation.Models
 
         }
         public DbSet<Goods_donations> Goods_donations { get; set; }
+        public DbSet<AllocateGoods> AllocateGoods { get; set; }
     }
 }

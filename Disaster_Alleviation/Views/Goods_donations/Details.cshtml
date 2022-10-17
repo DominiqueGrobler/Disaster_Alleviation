@@ -3,7 +3,9 @@
 @{
     ViewData["Title"] = "Details";
 }
-
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
     body {
         font-family: Arial, Helvetica, sans-serif;
@@ -27,6 +29,23 @@
         button:hover {
             opacity: 0.8;
         }
+
+    tr:nth-child(odd) {
+        background-color: #A264B4;
+        color: #7E0272;
+        font-weight: bold;
+        text-align: center;
+    }
+
+
+    th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: center;
+        font-weight: bold;
+        background-color: #7E0272;
+        color: white;
+    }
 
     a {
         color: white;
@@ -67,7 +86,7 @@
 
     /* Set a style for all buttons */
     button {
-        background-color: #A264B4;
+        background-color: #7E0272;
         color: white;
         padding: 14px 20px;
         margin: 8px 0;
@@ -76,11 +95,29 @@
         width: 100%;
         border-radius: 4px;
         height: 50px;
+        font-weight: bold;
     }
 
         button:hover {
             opacity: 0.8;
         }
+
+    tr {
+        background-color: #A264B4;
+        color: #7E0272;
+        font-weight: bold;
+        text-align: center;
+    }
+
+
+    th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: center;
+        font-weight: bold;
+        background-color: #7E0272;
+        color: white;
+    }
 
     /* Extra styles for the cancel button */
     .cancelbtn {
@@ -229,40 +266,57 @@
 </section>
 <br />
 <br />
-<div>
-    <dl class="row">
-        <dt class="col-sm-2" style="color: #FF914D">
-            CATEGORY
-        </dt>
-        <dd class="col-sm-10">
+<table class="table">
+    <thead>
+        <tr style="background-color:#E5E9ED">
+            <th>
+                CATEGORY
+            </th>
+            <th>
+                QUANTITY
+            </th>
+            <th>
+                DESCRIPTION
+            </th>
+            <th>
+                DONATION DATE
+            </th>
+            <th>
+                DONOR
+            </th>
+            <th></th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tr>
+        <td style="vertical-align: middle;">
             @Html.DisplayFor(model => model.Goods_Category)
-        </dd>
-        <dt class="col-sm-2" style="color: #FF914D">
-            NUMBER OF ITEMS
-        </dt>
-        <dd class="col-sm-10">
+        </td>
+        <td style="vertical-align: middle;">
             @Html.DisplayFor(model => model.Num_items)
-        </dd>
-        <dt class="col-sm-2" style="color: #FF914D">
-            DESCRIPTION
-        </dt>
-        <dd class="col-sm-10">
+        </td>
+        <td style="vertical-align: middle;">
             @Html.DisplayFor(model => model.Goods_Description)
-        </dd>
-        <dt class="col-sm-2" style="color: #FF914D">
-            DONATION DATE
-        </dt>
-        <dd class="col-sm-10">
+        </td>
+        <td style="vertical-align: middle;">
             @Html.DisplayFor(model => model.DonationDate)
-        </dd>
-        <dt class="col-sm-2" style="color: #FF914D">
-            DONOR
-        </dt>
-        <dd class="col-sm-10">
+        </td>
+        <td style="vertical-align: middle;">
             @Html.DisplayFor(model => model.Goods_Donor)
-        </dd>
-    </dl>
-</div>
+        </td>
+        <td>
+            <a asp-action="Edit" asp-route-id="@Model.GoodsID"><button value="Edit" class="w3-small w3-padding-small" style="height:40px;"><b>EDIT </b></button></a>
+        </td>
+        <td>
+            <a asp-action="Delete" asp-route-id="@Model.GoodsID"><button value="Delete" class="w3-small w3-padding-small" style="height:40px;"><i class="fa fa-trash"></i></button></a>
+        </td>
+        
+</table>
+
 <div>
-    <a asp-action="Index"><button value="Index">BACK TO DONATION LIST</button></a>
+    <a asp-action="Index"><button value="Index" class="cancelbtn">BACK TO DONATION LIST</button></a>
 </div>
+<br />
+<br />
+<br />

@@ -9,6 +9,8 @@
     body {
         font-family: Arial, Helvetica, sans-serif;
         background-color: #E5E9ED;
+        color: #FF7017;
+        font-weight: bold;
     }
     /* Set a style for all buttons */
     button {
@@ -77,6 +79,7 @@
         width: 100%;
         border-radius: 4px;
         height: 50px;
+        font-weight: bold;
     }
 
         button:hover {
@@ -216,6 +219,14 @@
     input {
         width: 100%;
         padding: 5px;
+        background-color: #E5E9ED;
+        border-color: #7E0272;
+    }
+       .box {
+        float: left;
+        width: 50%; /* three boxes (use 25% for four, and 50% for two, etc) */
+        padding-right: 40px;
+
     }
 </style>
 <section class="hero-wrap hero-wrap-2" style="background-image: url('/Images/head.png');">
@@ -233,46 +244,48 @@
 <form asp-action="Create">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-    <div class="form-group">
-        <label asp-for="DisasterName" class="control-label">Disaster Name</label>
+    <div class="form-group box">
+        <label asp-for="DisasterName" class="control-label" style="color:#FF7017"><b>Disaster Name</b></label>
         <input asp-for="DisasterName" class="form-control" />
         <span asp-validation-for="DisasterName" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="Location" class="control-label">Location</label>
-        <input asp-for="Location" class="form-control" />
+    <div class="form-group box">
+        <label asp-for="Location" class="control-label" style="color:#FF7017"><b>Location</b></label>
+        <input asp-for="Location" class="form-control " />
         <span asp-validation-for="Location" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="Description" class="control-label">Description</label>
-        <input asp-for="Description" class="form-control" />
+    <div class="form-group box">
+        <label asp-for="Description" class="control-label" style="color:#FF7017"><b>Description</b></label>
+        <input asp-for="Description" class="form-control " />
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="StartDate" class="control-label"> Start Date </label>
+    <div class="form-group box">
+        <label asp-for="StartDate" class="control-label" style="color:#FF7017"><b> Start Date </b></label>
         <input asp-for="StartDate" class="form-control" />
         <span asp-validation-for="StartDate" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="EndDate" class="control-label">End Date</label>
+    <div class="form-group box">
+        <label asp-for="EndDate" class="control-label" style="color:#FF7017"><b>End Date</b></label>
         <input asp-for="EndDate" class="form-control" />
         <span asp-validation-for="EndDate" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="AidType" class="control-label"> Aid Type</label>
+    <div class="form-group box">
+        <label asp-for="AidType" class="control-label" style="color:#FF7017"><b> Aid Type</b></label>
         <input asp-for="AidType" class="form-control" />
         <span asp-validation-for="AidType" class="text-danger"></span>
     </div>
-    <div class="form-group">
+
+    <div class="form-group box">
         <button type="submit" value="Create">ADD DISASTER</button>
     </div>
-
+    <div class="form-group box">
+        <a asp-action="Index"><button value="Index">BACK TO DISASTER LIST</button></a>
+    </div>
 </form>
-<div>
-    <a asp-action="Index"><button class="cancelbtn" value="Create">BACK TO DISASTER LIST</button></a>
-</div>
 
 
+<br />
+<br /><br />
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

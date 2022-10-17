@@ -1,48 +1,33 @@
 ﻿@model Disaster_Alleviation.Models.Monetary_donations
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "AllocateMoney";
 }
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<!-- Add icon library -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
     body {
         font-family: Arial, Helvetica, sans-serif;
         background-color: #E5E9ED;
+        color: #FF7017;
+        font-weight: bold;
     }
     /* Set a style for all buttons */
     button {
-        background-color: #7E0272;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
         color: white;
-        padding: 14px 20px;
+        padding: 100px 20px;
         margin: 8px 0;
         border: none;
         cursor: pointer;
-        width: 100%;
-        border-radius: 4px;
+        width: 250px;
+        height: 250px;
+        border-radius: 8px;
     }
 
         button:hover {
             opacity: 0.8;
         }
-
-    tr:nth-child(odd) {
-        background-color: #A264B4;
-        color: #7E0272;
-        font-weight: bold;
-        text-align: center;
-    }
-
-
-    th {
-        padding-top: 12px;
-        padding-bottom: 12px;
-        text-align: center;
-        font-weight: bold;
-        background-color: #7E0272;
-        color: white;
-    }
 
     a {
         color: white;
@@ -83,7 +68,7 @@
 
     /* Set a style for all buttons */
     button {
-        background-color: #7E0272;
+        background-color: #A264B4;
         color: white;
         padding: 14px 20px;
         margin: 8px 0;
@@ -97,23 +82,6 @@
         button:hover {
             opacity: 0.8;
         }
-
-    tr {
-        background-color: #A264B4;
-        color: #7E0272;
-        font-weight: bold;
-        text-align: center;
-    }
-
-
-    th {
-        padding-top: 12px;
-        padding-bottom: 12px;
-        text-align: center;
-        font-weight: bold;
-        background-color: #7E0272;
-        color: white;
-    }
 
     /* Extra styles for the cancel button */
     .cancelbtn {
@@ -192,7 +160,6 @@
 
     .cancelbtn {
         width: 100%;
-        background-color: #FF914D;
     }
 
 
@@ -249,12 +216,18 @@
         width: 100%;
         padding: 5px;
     }
+
+    .box {
+        float: left;
+        width: 50%; /* three boxes (use 25% for four, and 50% for two, etc) */
+        padding-right: 40px;
+    }
 </style>
 <section class="hero-wrap hero-wrap-2" style="background-image: url('/Images/head.png');">
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
-                <h1 class="mb-2 bread" style="text-align:center;">Monetary Donation Details</h1>
+                <h1 class="mb-2 bread" style="text-align:center;">Allocate Monetary Donation </h1>
                 <p class="breadcrumbs"><span class="mr-2"><a asp-action="Index"> Home > <i class="ion-ios-arrow-forward"></i></a></span></p>
             </div>
         </div>
@@ -262,47 +235,48 @@
 </section>
 <br />
 <br />
-<table class="table">
-    <thead>
-        <tr style="background-color:#E5E9ED">
-            <th>
-                AMOUNT
-            </th>
-            <th>
-                DONATION DATE
-            </th>
-            <th>
-                DONOR
-            </th>
 
-            <th></th>
-            <th></th>
-            <th></th>
+        <form asp-action="AllocateMoney">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" value="@ViewBag.DisasterID" />
+    <div class="form-group box">
+                <label class="control-label">Disaster Name</label>
+        <input style="border: 1px solid #ccc;" type="text" value="@ViewBag.DisasterName" />
+            </div>
+    <div class="form-group box">
+                <label  class="control-label">Disaster Location</label>
+        <input type="text" style="border: 1px solid #ccc;" value="@ViewBag.Location" />
+            </div>
+            
+            <div class="form-group box">
+                <label asp-for="Amount" class="control-label"></label>
+                <input asp-for="Amount" class="form-control" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group box">
+        <label asp-for="DonationDate" class="control-label">Donation Date</label>
+                <input asp-for="DonationDate" class="form-control" />
+                <span asp-validation-for="DonationDate" class="text-danger"></span>
+            </div>
+    <div class="form-group" style="padding-right: 40px;">
+                <label asp-for="Donor" class="control-label"></label>
+                <input asp-for="Donor" class="form-control" />
+                <span asp-validation-for="Donor" class="text-danger"></span>
+            </div>
+            <div class="form-group box">
+        <button type="submit" value="Save ">ALLOCATE</button>
+            </div>
+    <div class="form-group box">
+        <a asp-action="Index"><button value="Index">BACK TO DONATION LIST</button></a>
+    </div>
+        </form>
 
-        </tr>
-    </thead>
-    <tr>
-        <td style="vertical-align: middle;">
-            @Html.DisplayFor(model => model.Amount)
-        </td>
-        <td style="vertical-align: middle;">
-            @Html.DisplayFor(model => model.DonationDate)
-        </td>
-        <td style="vertical-align: middle;">
-            @Html.DisplayFor(model => model.Donor)
-        </td>
-<td>
-    <a asp-action="Edit" asp-route-id="@Model.MonetaryID"><button value="Edit" class="w3-small w3-padding-small" style="height:40px;"><b>EDIT </b></button></a>
-</td>
-<td>
-            <a asp-action="Delete" asp-route-id="@Model.MonetaryID"><button value="Delete" class="w3-small w3-padding-small" style="height:40px;"><i class="fa fa-trash"></i></button></a>
-</td>
-<td>
-           
-    </table>
-<div>
-    <a asp-action="Index"><button value="Index" class="cancelbtn">BACK TO DONATION LIST</button></a>
-</div>
+
+
 <br />
 <br />
 <br />
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

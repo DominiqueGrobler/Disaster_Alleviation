@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Disaster_Alleviation.Models.Monetary_donations>
+﻿@model IEnumerable<Disaster_Alleviation.Models.AllocateMoney>
 
 @{
     ViewData["Title"] = "Index";
@@ -22,11 +22,6 @@
         cursor: pointer;
         width: 100%;
         border-radius: 4px;
-    }
-     .cancelbtn {
-        width: 100%;
-        padding: 10px 18px;
-        background-color: #FF914D;
     }
 
         button:hover {
@@ -112,8 +107,8 @@
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
-                <h1 class="mb-2 bread" style="text-align:center;">Monetary Donations</h1>
-                <p class="breadcrumbs"><span class="mr-2"><a onclick="location.href=('/Home/Index')"> Home > <i class="ion-ios-arrow-forward"></i></a></span></p>
+                <h1 class="mb-2 bread" style="text-align:center;">Allocated Monetary Donations</h1>
+                <p class="breadcrumbs"><span class="mr-2"><a onclick="location.href=('/Disasters/Index')" > Disaster > <i class="ion-ios-arrow-forward"></i></a></span></p>
             </div>
         </div>
     </div>
@@ -124,29 +119,46 @@
 <br />
 <br />
 
-<a asp-action="Create"><button value="Create" class="cancelbtn">DONATE</button></a>
+<a asp-action="Create"><button value="Create">DONATE</button></a>
 
 <table class="table">
     <thead>
         <tr>
-            <th >
-               AMOUNT
+            <th>
+                DISASTER ID
+            </th>
+            <th>
+                DISASTER NAME
+            </th>
+            <th>
+                LOCATION
+            </th>
+            <th>
+                AMOUNT
             </th>
             <th>
                 DONATION DATE
             </th>
-            <th >
+            <th>
                 DONOR
             </th>
             <th></th>
-            <th></th>
-
+ 
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.DisasterID)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.DisasterName)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
                 <td style="vertical-align: middle;">
                     R @Html.DisplayFor(modelItem => item.Amount)
                 </td>
@@ -157,28 +169,27 @@
                     @Html.DisplayFor(modelItem => item.Donor)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.MonetaryID"><button value="Details" class="w3-small w3-padding-small" style="height:40px; font-size:13px"><b>DETAILS</b></button></a>
+                    <a asp-action="Details" asp-route-id="@item.AllocateM"><button value="Details" class="w3-small w3-padding-small" style="height:40px; font-size:13px"><b>DETAILS</b></button></a>
 
                 </td>
 
-                <td>
-                    <a asp-action="AllocateMoney" asp-route-id="@item.MonetaryID"><button value="AllocateMoney" class="w3-small w3-padding-small" style="height:40px; font-size:13px"><b>ALLOCATE</b></button></a>
-
-                </td>
                
-                </tr>
-                }
-             </tbody>
-                <tfoot>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
         <tr style="background-color:#7E0272; color:white; font-weight: bold;">
 
-                <td>TOTAL: R @Model.Sum(i => i.Amount)</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </tfoot>
+            <td>TOTAL MONEY ALLOCATED: R @Model.Sum(i => i.Amount)</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+           
+        </tr>
+    </tfoot>
 </table>
 <br />
 <br />
