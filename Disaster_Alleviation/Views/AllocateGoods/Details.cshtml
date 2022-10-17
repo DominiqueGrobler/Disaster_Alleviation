@@ -267,12 +267,21 @@
 <br />
 <table class="table">
     <thead>
-        <tr style="background-color:#E5E9ED">
+        <tr>
+            <th>
+                DISASTER ID
+            </th>
+            <th>
+                DISASTER 
+            </th>
+            <th>
+                LOCATION
+            </th>
             <th>
                 CATEGORY
             </th>
             <th>
-                NUMBER OF ITEMS
+                QUANTITY
             </th>
             <th>
                 DESCRIPTION
@@ -284,28 +293,35 @@
                 DONOR
             </th>
 
-            <th></th>
-            <th></th>
-
         </tr>
     </thead>
-    <tr>
-        <td style="vertical-align: middle;">
-            @Html.DisplayFor(model => model.Goods_Category)
-        </td>
-        <td style="vertical-align: middle;">
-            @Html.DisplayFor(model => model.Num_items)
-        </td>
-        <td style="vertical-align: middle;">
-            @Html.DisplayFor(model => model.Goods_Description)
-        </td>
-        <td style="vertical-align: middle;">
-            @Html.DisplayFor(model => model.DonationDate)
-        </td>
-        <td style="vertical-align: middle;">
-            @Html.DisplayFor(model => model.Goods_Donor)
-        </td>
+    <tbody>
 
+            <tr>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(model => model.DisasterID)
+                </td>
+                <td style="vertical-align: middle;">
+                @Html.DisplayFor(model => model.DisasterName)
+                </td>
+                <td style="vertical-align: middle;">
+                @Html.DisplayFor(model => model.Location)
+                </td>
+                <td style="vertical-align: middle;">
+                @Html.DisplayFor(model => model.Goods_Category)
+                </td>
+                <td style="vertical-align: middle;">
+                @Html.DisplayFor(model => model.Num_items)
+                </td>
+                <td style="vertical-align: middle;">
+                @Html.DisplayFor(model => model.Goods_Description)
+                </td>
+                <td style="vertical-align: middle;">
+                @Html.DisplayFor(model => model.DonationDate)
+                </td>
+                <td style="vertical-align: middle;">
+                @Html.DisplayFor(model => model.Goods_Donor)
+                </td>
 </table>
 
 <div>

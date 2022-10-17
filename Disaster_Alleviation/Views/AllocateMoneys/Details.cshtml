@@ -265,7 +265,16 @@
 <br />
 <table class="table">
     <thead>
-        <tr style="background-color:#E5E9ED">
+        <tr>
+            <th>
+                DISASTER ID
+            </th>
+            <th>
+                DISASTER NAME
+            </th>
+            <th>
+                LOCATION
+            </th>
             <th>
                 AMOUNT
             </th>
@@ -275,12 +284,19 @@
             <th>
                 DONOR
             </th>
-
-
-
+        
         </tr>
     </thead>
     <tr>
+        <td style="vertical-align: middle;">
+            @Html.DisplayFor(model => model.DisasterID)
+        </td>
+        <td style="vertical-align: middle;">
+            @Html.DisplayFor(model => model.DisasterName)
+        </td>
+        <td style="vertical-align: middle;">
+            @Html.DisplayFor(model => model.Location)
+        </td>
         <td style="vertical-align: middle;">
             @Html.DisplayFor(model => model.Amount)
         </td>
