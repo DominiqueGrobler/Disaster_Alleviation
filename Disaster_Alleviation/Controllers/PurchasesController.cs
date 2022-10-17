@@ -20,7 +20,10 @@ namespace Disaster_Alleviation.Controllers
             _context = context;
             _Mcontext = Mcontext;
         }
-
+        //code attribution
+        //this method was taken from benjii.me
+        //https://stackoverflow.com/questions/2978736/linq-and-conditional-sum
+        //(StackOverflow, 2010)
         // GET: Purchases
         public async Task<IActionResult> Index()
         {
