@@ -27,10 +27,7 @@ namespace Disaster_Alleviation.Controllers
         // GET: Purchases
         public async Task<IActionResult> Index()
         {
-            if (HttpContext.Session.GetString("LoggedIn") != "Yes")
-            {
-                return Redirect("/Users/Login");
-            }
+            
             var purchaseTotal = _context.Purchase.Where(x => x.Amount >= 0).Sum(y => y.Amount);
             ViewBag.purchaseTotal = purchaseTotal;
 
@@ -47,6 +44,11 @@ namespace Disaster_Alleviation.Controllers
         // GET: Purchases/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            if (HttpContext.Session.GetString("LoggedIn") != "Yes")
+            {
+                return Redirect("/Users/Login");
+            }
+
             if (id == null)
             {
                 return NotFound();

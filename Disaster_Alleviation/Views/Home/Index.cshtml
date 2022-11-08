@@ -136,9 +136,94 @@
         .cancelbtn {
             width: 100%;
         }
+
+        * {
+            box-sizing: border-box;
         }
+
+        .columns {
+            float: left;
+            width: 33.3%;
+            padding: 8px;
+        }
+
+        .price {
+            list-style-type: none;
+            border: 1px solid #eee;
+            margin: 0;
+            padding: 0;
+            -webkit-transition: 0.3s;
+            transition: 0.3s;
+        }
+
+            .price:hover {
+                box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
+            }
+
+            .price .header {
+                background-color: #111;
+                color: white;
+                font-size: 25px;
+            }
+
+            .price li {
+                border-bottom: 1px solid #eee;
+                padding: 20px;
+                text-align: center;
+            }
+
+        .hero-wrap {
+            width: 100%;
+            height: 100%;
+            position: inherit;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            position: relative;
+        }
+
+            .hero-wrap .overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                content: '';
+                opacity: .3;
+                background: #f1453d;
+            }
+
+            .hero-wrap.hero-wrap-2 {
+                height: 300px;
+            }
+
+                .hero-wrap.hero-wrap-2 .slider-text {
+                    height: 300px;
+                }
+
+                    .hero-wrap.hero-wrap-2 .slider-text .bread {
+                        font-weight: 900;
+                        color: #fff;
+                    }
+
+                    .hero-wrap.hero-wrap-2 .slider-text .breadcrumbs {
+                        text-transform: uppercase;
+                        font-size: 13px;
+                        letter-spacing: 1px;
+                    }
+
+                        .hero-wrap.hero-wrap-2 .slider-text .breadcrumbs span {
+                            color: #fff;
+                            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+                        }
+
+                            .hero-wrap.hero-wrap-2 .slider-text .breadcrumbs span a {
+                                color: #fff;
+                            }
+
     </style>
 </head>
+<body>
 <img src="/Images/homepage.png" width="100%" />
 
 
@@ -156,5 +241,60 @@
 <br />
 <br />
 <br />
+<section class="hero-wrap hero-wrap-2" style="background-image: url('/Images/total_back.png');">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                    <h1 class="mb-2 bread" style="text-align:center; color:#7E0272">Donation Totals</h1>
+               
+            </div>
+        </div>
+    </div>
+        
 
+                    <div class="columns">
+                        <ul class="price">
+                            <li class="header" style="background-color:#7E0272"><B>Goods Donations<B></li>
+                            <li style="background-color:#A264B4">$ 9.99 / year</li>
 
+                <li style="background-color:#7E0272"><a href="#" style="background-color:#7E0272;color:white" class="button"><B>VIEW<B></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="columns">
+                        <ul class="price">
+                            <li class="header" style="background-color:#FF914D">Monetary Donations</li>
+                <li style="background-color:#FFBE96; color:#7E0272"><b>R @ViewBag.Left</b></li>
+
+                <li style="background-color:#FF914D"><a onclick="location.href=('/Monetary_donations/Index')" style="background-color:#FF914D;color:white" class="button"><B>VIEW<B></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="columns">
+                        <ul class="price">
+                            <li class="header" style="background-color:#7E0272">Disasters</li>
+                            <li style="background-color:#A264B4">$ 9.99 / year</li>
+                <li style="background-color:#7E0272"><a href="#" style="background-color:#7E0272;color:white" class="button"><B>VIEW<B></a></li>
+            </ul>
+
+                </div>
+       
+    		
+    </section>
+    <div class="columns">
+    <p>
+        
+            
+        
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </p>
+    </div>
+</body>
