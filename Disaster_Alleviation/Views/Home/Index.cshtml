@@ -221,6 +221,20 @@
                                 color: #fff;
                             }
 
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            width: 40%;
+        }
+
+            .card:hover {
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            }
+
+        .container {
+            padding: 2px 16px;
+        }
+
     </style>
 </head>
 <body>
@@ -241,45 +255,39 @@
 <br />
 <br />
 <br />
-<section class="hero-wrap hero-wrap-2" style="background-image: url('/Images/total_back.png');">
-    <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-            <div class="col-md-9 ftco-animate text-center">
-                    <h1 class="mb-2 bread" style="text-align:center; color:#7E0272">Donation Totals</h1>
-               
-            </div>
-        </div>
-    </div>
-        
+    <img src="/Images/total_head.png" width="100%" />
+    
+
 
                     <div class="columns">
                         <ul class="price">
-                            <li class="header" style="background-color:#7E0272"><B>Goods Donations<B></li>
-                            <li style="background-color:#A264B4">$ 9.99 / year</li>
+            <li class="header" style="background-color:#7E0272"><B>Goods Donations</B></li>
+            <li style="background-color:#A264B4; color:white" ">@ViewBag.goods</li>
 
-                <li style="background-color:#7E0272"><a href="#" style="background-color:#7E0272;color:white" class="button"><B>VIEW<B></a></li>
+                <li style="background-color:#7E0272"><a href="#" style="background-color:#7E0272;color:white" class="button"><B>VIEW</B></a></li>
                         </ul>
                     </div>
 
                     <div class="columns">
                         <ul class="price">
-                            <li class="header" style="background-color:#FF914D">Monetary Donations</li>
-                <li style="background-color:#FFBE96; color:#7E0272"><b>R @ViewBag.Left</b></li>
+            <li class="header" style="background-color:#7E0272"><B>Monetary Donations</B></li>
+            <li style="background-color:#A264B4; color:white" "><b>R @ViewBag.Left</b></li>
 
-                <li style="background-color:#FF914D"><a onclick="location.href=('/Monetary_donations/Index')" style="background-color:#FF914D;color:white" class="button"><B>VIEW<B></a></li>
+                <li style="background-color:#7E0272"><a onclick="location.href=('/Monetary_donations/Index')" style="background-color:#7E0272;color:white" class="button"><B>VIEW</B></a></li>
                         </ul>
                     </div>
 
                     <div class="columns">
                         <ul class="price">
-                            <li class="header" style="background-color:#7E0272">Disasters</li>
+            <li class="header" style="background-color:#7E0272"><B>Disasters</B></li>
                             <li style="background-color:#A264B4">$ 9.99 / year</li>
-                <li style="background-color:#7E0272"><a href="#" style="background-color:#7E0272;color:white" class="button"><B>VIEW<B></a></li>
+                <li style="background-color:#7E0272"><a href="#" style="background-color:#7E0272;color:white" class="button"><B>VIEW</B></a></li>
             </ul>
 
                 </div>
-       
-    		
+
+
+
     </section>
     <div class="columns">
     <p>
