@@ -10,6 +10,8 @@
         body {
             font-family: Arial, Helvetica, sans-serif;
             background-color: #E5E9ED;
+            background-color: #E5E9ED;
+            font-weight: bold;
         }
 
 
@@ -143,7 +145,7 @@
 
         .columns {
             float: left;
-            width: 33.3%;
+            width: 50%;
             padding: 8px;
         }
 
@@ -262,33 +264,26 @@
                     <div class="columns">
                         <ul class="price">
             <li class="header" style="background-color:#7E0272"><B>Goods Donations</B></li>
-            <li style="background-color:#A264B4; color:white" ">@ViewBag.goods</li>
+            <li style="background-color:#A264B4; color:white"><b>Total: @ViewBag.goods</b></li>
 
-                <li style="background-color:#7E0272"><a href="#" style="background-color:#7E0272;color:white" class="button"><B>VIEW</B></a></li>
+               
                         </ul>
                     </div>
 
                     <div class="columns">
                         <ul class="price">
             <li class="header" style="background-color:#7E0272"><B>Monetary Donations</B></li>
-            <li style="background-color:#A264B4; color:white" "><b>R @ViewBag.Left</b></li>
+            <li style="background-color:#A264B4; color:white"><b>Total: R @ViewBag.Left</b></li>
 
-                <li style="background-color:#7E0272"><a onclick="location.href=('/Monetary_donations/Index')" style="background-color:#7E0272;color:white" class="button"><B>VIEW</B></a></li>
+                
                         </ul>
                     </div>
 
-                    <div class="columns">
-                        <ul class="price">
-            <li class="header" style="background-color:#7E0272"><B>Disasters</B></li>
-                            <li style="background-color:#A264B4">$ 9.99 / year</li>
-                <li style="background-color:#7E0272"><a href="#" style="background-color:#7E0272;color:white" class="button"><B>VIEW</B></a></li>
-            </ul>
-
-                </div>
+                   
 
 
 
-    </section>
+
     <div class="columns">
     <p>
         
@@ -305,4 +300,5 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     </p>
     </div>
+
 </body>

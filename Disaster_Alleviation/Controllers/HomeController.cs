@@ -16,14 +16,16 @@ namespace Disaster_Alleviation.Controllers
         private readonly Monetary_donations_Context _Mcontext;
         private readonly Purchase_Context _Pcontext;
         private readonly Goods_donation_Context _Gcontext;
+        private readonly Disaster_Context _Dcontext;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger, Monetary_donations_Context Mcontext, Purchase_Context  Pcontext, Goods_donation_Context Gcontext)
+        public HomeController(ILogger<HomeController> logger, Monetary_donations_Context Mcontext, Purchase_Context  Pcontext, Goods_donation_Context Gcontext, Disaster_Context Dcontext)
         {
             _logger = logger;
             _Mcontext = Mcontext;
             _Pcontext = Pcontext;
             _Gcontext = Gcontext;
+            _Dcontext  = Dcontext;
 
         }
 
@@ -41,6 +43,9 @@ namespace Disaster_Alleviation.Controllers
             var purchaseGoods= _Pcontext.Purchase.Where(x => x.Num_items >= 0).Sum(y => y.Num_items);
             ViewBag.purchaseGoods = purchaseGoods;
             ViewBag.goods= goodsTotal + purchaseGoods;
+
+            var active = _Dcontext.Disaster.Where(x => x.Status.Equals("Active"));//.Count(y => y.Status);  
+            ViewBag.active = active;
 
             HttpContext.Session.SetString("Test", "Ben Rules");
             ViewBag.Name = "Jess";
