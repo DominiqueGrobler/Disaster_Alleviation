@@ -24,6 +24,9 @@ namespace Disaster_Alleviation
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<Disaster_Context>(o =>
+          o.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddControllersWithViews();
             services.AddDbContext<User_Context>(options =>
              options.UseSqlServer(Configuration.GetConnectionString("online")));

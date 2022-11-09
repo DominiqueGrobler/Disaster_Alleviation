@@ -23,7 +23,7 @@ namespace Disaster_Alleviation.Models
         [Required(ErrorMessage = "Please enter your End date.")]
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
-        [Required(ErrorMessage = "Please enter your Aid typr.")]
+        [Required(ErrorMessage = "Please enter your Aid type.")]
         public string AidType { get; set; }
         public string Status { get;set; }
 
