@@ -155,7 +155,7 @@ namespace DisasterUnit_Test
         {
 
             int Actual = calculateTotalMoney();
-            int expected = 55003;
+            int expected = 15000;
             Assert.AreEqual(expected, Actual);
         }
 
@@ -176,7 +176,7 @@ namespace DisasterUnit_Test
         {
 
             int Actual = calculateTotalGoods();
-            int expected = 53;
+            int expected = 11;
             Assert.AreEqual(expected, Actual);
         }
 
