@@ -148,6 +148,13 @@
             float: left;
             width: 50%;
             padding: 8px;
+            
+        }
+
+        .column {
+            float: left;
+            width: 100%;
+            padding: 8px;
         }
 
         .price {
@@ -173,6 +180,12 @@
                 border-bottom: 1px solid #eee;
                 padding: 20px;
                 text-align: center;
+            }
+
+            .prices li {
+                border-bottom: 1px solid #eee;
+                padding: 20px;
+                text-align: jus;
             }
 
         .hero-wrap {
@@ -259,29 +272,83 @@
 <br />
 <br />
     <img src="/Images/total_head.png" width="100%" />
-    
 
 
-                    <div class="columns">
-                        <ul class="price">
+
+    <div class="columns">
+        <ul class="price">
             <li class="header" style="background-color:#7E0272"><B>Goods Donations</B></li>
             <li style="background-color:#A264B4; color:white"><b>Total: @ViewBag.goods</b></li>
 
-               
-                        </ul>
-                    </div>
+        </ul>
+    </div>
 
-                    <div class="columns">
-                        <ul class="price">
+    <div class="columns">
+        <ul class="price">
             <li class="header" style="background-color:#7E0272"><B>Monetary Donations</B></li>
             <li style="background-color:#A264B4; color:white"><b>Total: R @ViewBag.Left</b></li>
 
-                
-                        </ul>
-                    </div>
+        </ul>
+    </div>
 
-                   
+    <div class="column"  >
+        <ul class="price">
+            <li class="header" style="background-color:#7E0272"><B>Active Disaster</B></li>
+            <li style="background-color:#A264B4; color:white">
+                <b>
+            @foreach (var disaster in ViewBag.Active)
+            {
+                        <span style="color:#97C71B; text-align:left"> @disaster.DisasterName - </span>
 
+                        <span style="color:white; text-align:left">  @disaster.Description </span>
+
+
+                    <br />
+                @foreach (var allocateMoney in ViewBag.allocateMoney)
+                {
+                    if (disaster.DisasterID == allocateMoney.DisasterID)
+                    {
+                        <br />
+                        <label>Allocated Money</label> @allocateMoney.Amount
+                    }
+                }
+
+                @foreach (var goodsAll in ViewBag.goodsAll)
+                {
+                    @foreach (var allocateGoods in ViewBag.allocateGoods)
+                    {
+                        if (disaster.DisasterID == allocateGoods.DisasterID)
+                        {
+                            <br />
+                            <label>Allocated Goods</label>
+                            @allocateGoods.Goods_Description
+                            <br />
+                        }
+                    }
+                }
+            }
+                </b>
+            </li>
+        </ul>
+        <p>
+
+
+
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </p>
+    </div>
+
+ <br />
+    <br />
+    <br />
 
 
 
