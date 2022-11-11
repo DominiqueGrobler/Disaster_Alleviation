@@ -22,6 +22,8 @@ namespace Disaster_Alleviation.Controllers
         // GET: AllocateGoods
         public async Task<IActionResult> Index()
         {
+            var totalGA = _context.AllocateGoods.Where(x => x.Num_items >= 0).Sum(y => y.Num_items);
+            ViewBag.AllocatedGTotal = totalGA;
             return View(await _context.AllocateGoods.ToListAsync());
         }
 

@@ -209,6 +209,42 @@ namespace DisasterUnit_Test
         //    Assert.AreEqual(expected, Actual);
         //}
 
+        public int calculateTotalAMoney()
+        {
+            using (var context = new Monetary_donations_Context(_MoneyOptions))
+            {
+                var totalMA = context.AllocateMoney.Where(x => x.Amount >= 0).Sum(y => y.Amount);
 
+                return totalMA;
+            }
+        }
+
+        [TestMethod]
+        public void GetTotalAMoney()
+        {
+
+            int Actual = calculateTotalAMoney();
+            int expected = 11000;
+            Assert.AreEqual(expected, Actual);
+        }
+
+        public int calculateTotalAGoods()
+        {
+            using (var context = new Goods_donation_Context(_GoodsOptions))
+            {
+                var totalAG = context.AllocateGoods.Where(x => x.Num_items >= 0).Sum(y => y.Num_items);
+
+                return totalAG;
+            }
+        }
+
+        [TestMethod]
+        public void GetTotalAGoods()
+        {
+
+            int Actual = calculateTotalAGoods();
+            int expected = 21;
+            Assert.AreEqual(expected, Actual);
+        }
     }
 }
