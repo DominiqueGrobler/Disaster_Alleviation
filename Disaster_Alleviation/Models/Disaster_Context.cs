@@ -8,6 +8,8 @@ namespace Disaster_Alleviation.Models
 {
     public class Disaster_Context : DbContext
     {
+        public Disaster_Context() { }
+
         public Disaster_Context(DbContextOptions<Disaster_Context> options)
             : base(options)
         {

@@ -1,6 +1,7 @@
 ﻿using Disaster_Alleviation.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -12,15 +13,40 @@ namespace Disaster_Alleviation.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly Monetary_donations_Context _Mcontext;
+        private readonly Purchase_Context _Pcontext;
+        private readonly Goods_donation_Context _Gcontext;
+        private readonly Disaster_Context _Dcontext;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, Monetary_donations_Context Mcontext, Purchase_Context  Pcontext, Goods_donation_Context Gcontext, Disaster_Context Dcontext)
         {
             _logger = logger;
+            _Mcontext = Mcontext;
+            _Pcontext = Pcontext;
+            _Gcontext = Gcontext;
+            _Dcontext  = Dcontext;
+
         }
 
         public IActionResult Index()
         {
+            var purchaseTotal = _Pcontext.Purchase.Where(x => x.Amount >= 0).Sum(y => y.Amount);
+            ViewBag.purchaseTotal = purchaseTotal;
+
+            var total = _Mcontext.Monetary_donations.Where(x => x.Amount >= 0).Sum(y => y.Amount);
+            ViewBag.Total = total;
+            ViewBag.Left = total - purchaseTotal;
+
+            var goodsTotal = _Gcontext.Goods_donations.Where(x => x.Num_items >= 0).Sum(y => y.Num_items);
+            ViewBag.goodsTotal = goodsTotal;
+            var purchaseGoods= _Pcontext.Purchase.Where(x => x.Num_items >= 0).Sum(y => y.Num_items);
+            ViewBag.purchaseGoods = purchaseGoods;
+            ViewBag.goods= goodsTotal + purchaseGoods;
+
+            var active = _Dcontext.Disaster.Where(x => x.Status.Equals("Active"));//.Count(y => y.Status);  
+            ViewBag.active = active;
+
             HttpContext.Session.SetString("Test", "Ben Rules");
             ViewBag.Name = "Jess";
             ViewBag.Date = DateTime.Now;

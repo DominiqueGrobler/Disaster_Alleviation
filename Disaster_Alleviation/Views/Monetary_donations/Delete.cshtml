@@ -7,6 +7,7 @@
     body {
         font-family: Arial, Helvetica, sans-serif;
         background-color: #E5E9ED;
+        font-weight: bold;
     }
     /* Set a style for all buttons */
     button {
@@ -272,7 +273,7 @@
     </thead>
     <tr>
         <td style="vertical-align: middle;">
-            @Html.DisplayFor(model => model.Amount)
+           R @Html.DisplayFor(model => model.Amount)
         </td>
         <td style="vertical-align: middle;">
             @Html.DisplayFor(model => model.DonationDate)
@@ -292,5 +293,10 @@
     <div class="form-group box " >
     <a asp-action="Index"><button value="Index" class="cancelbtn">BACK TO DONATION LIST</button></a>
     </div>
+    <br />
+    <br />
+    <br /><br />
+    <br />
+    <br />
     </form>
 </div>

@@ -21,6 +21,8 @@ namespace Disaster_Alleviation.Controllers
         // GET: AllocateMoneys
         public async Task<IActionResult> Index()
         {
+            var totalMA = _context.AllocateMoney.Where(x => x.Amount >= 0).Sum(y => y.Amount);
+            ViewBag.AllocatedMTotal = totalMA;
             return View(await _context.AllocateMoney.ToListAsync());
         }
 

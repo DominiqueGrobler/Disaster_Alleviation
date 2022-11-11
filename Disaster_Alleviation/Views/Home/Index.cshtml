@@ -10,6 +10,8 @@
         body {
             font-family: Arial, Helvetica, sans-serif;
             background-color: #E5E9ED;
+            background-color: #E5E9ED;
+            font-weight: bold;
         }
 
 
@@ -53,6 +55,7 @@
             width: 200px;
             height: 200px;
             border-radius: 8px;
+            
         }
 
             button:hover {
@@ -136,9 +139,108 @@
         .cancelbtn {
             width: 100%;
         }
+
+        * {
+            box-sizing: border-box;
         }
+
+        .columns {
+            float: left;
+            width: 50%;
+            padding: 8px;
+        }
+
+        .price {
+            list-style-type: none;
+            border: 1px solid #eee;
+            margin: 0;
+            padding: 0;
+            -webkit-transition: 0.3s;
+            transition: 0.3s;
+        }
+
+            .price:hover {
+                box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
+            }
+
+            .price .header {
+                background-color: #111;
+                color: white;
+                font-size: 25px;
+            }
+
+            .price li {
+                border-bottom: 1px solid #eee;
+                padding: 20px;
+                text-align: center;
+            }
+
+        .hero-wrap {
+            width: 100%;
+            height: 100%;
+            position: inherit;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            position: relative;
+        }
+
+            .hero-wrap .overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                content: '';
+                opacity: .3;
+                background: #f1453d;
+            }
+
+            .hero-wrap.hero-wrap-2 {
+                height: 300px;
+            }
+
+                .hero-wrap.hero-wrap-2 .slider-text {
+                    height: 300px;
+                }
+
+                    .hero-wrap.hero-wrap-2 .slider-text .bread {
+                        font-weight: 900;
+                        color: #fff;
+                    }
+
+                    .hero-wrap.hero-wrap-2 .slider-text .breadcrumbs {
+                        text-transform: uppercase;
+                        font-size: 13px;
+                        letter-spacing: 1px;
+                    }
+
+                        .hero-wrap.hero-wrap-2 .slider-text .breadcrumbs span {
+                            color: #fff;
+                            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+                        }
+
+                            .hero-wrap.hero-wrap-2 .slider-text .breadcrumbs span a {
+                                color: #fff;
+                            }
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            width: 40%;
+        }
+
+            .card:hover {
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            }
+
+        .container {
+            padding: 2px 16px;
+        }
+
     </style>
 </head>
+<body>
 <img src="/Images/homepage.png" width="100%" />
 
 
@@ -156,5 +258,48 @@
 <br />
 <br />
 <br />
+    <img src="/Images/total_head.png" width="100%" />
+    
 
 
+                    <div class="columns">
+                        <ul class="price">
+            <li class="header" style="background-color:#7E0272"><B>Goods Donations</B></li>
+            <li style="background-color:#A264B4; color:white"><b>Total: @ViewBag.goods</b></li>
+
+               
+                        </ul>
+                    </div>
+
+                    <div class="columns">
+                        <ul class="price">
+            <li class="header" style="background-color:#7E0272"><B>Monetary Donations</B></li>
+            <li style="background-color:#A264B4; color:white"><b>Total: R @ViewBag.Left</b></li>
+
+                
+                        </ul>
+                    </div>
+
+                   
+
+
+
+
+    <div class="columns">
+    <p>
+        
+            
+        
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </p>
+    </div>
+
+</body>

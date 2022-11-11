@@ -19,6 +19,8 @@ namespace Disaster_Alleviation.Controllers
             _context = context;
         }
 
+
+
         // GET: Disasters
         //code attribution
         //this method was taken DotNetTricks
@@ -33,13 +35,14 @@ namespace Disaster_Alleviation.Controllers
                 return Redirect("/Users/Login");
             }
 
-           
+
             return View(await _context.Disaster.ToListAsync());
         }
 
         // GET: Disasters/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            
             if (id == null)
             {
                 return NotFound();
