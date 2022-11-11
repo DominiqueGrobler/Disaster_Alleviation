@@ -44,8 +44,18 @@ namespace Disaster_Alleviation.Controllers
             ViewBag.purchaseGoods = purchaseGoods;
             ViewBag.goods= goodsTotal + purchaseGoods;
 
-            var active = _Dcontext.Disaster.Where(x => x.Status.Equals("Active"));//.Count(y => y.Status);  
+            var active = _Dcontext.Disaster.Where(x => x.EndDate > DateTime.Today && x.StartDate <= DateTime.Today).ToList();  
             ViewBag.active = active;
+
+            var allocateGoods = _Gcontext.AllocateGoods.Where(x => x.AllocateG > 0).ToList();
+            ViewBag.allocateGoods = allocateGoods;
+
+            var allocateMoney = _Mcontext.AllocateMoney.Where(x => x.DisasterID > 0).ToList();
+            ViewBag.allocateMoney = allocateMoney;
+
+            var goodsAll = _Gcontext.Goods_donations.Where(x => x.GoodsID > 0).ToList();
+            ViewBag.goodsAll = goodsAll;
+
 
             HttpContext.Session.SetString("Test", "Ben Rules");
             ViewBag.Name = "Jess";
