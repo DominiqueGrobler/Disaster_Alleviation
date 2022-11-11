@@ -4,6 +4,12 @@ using System;
 using Disaster_Alleviation.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Mvc;
+using Disaster_Alleviation.Controllers;
+using Microsoft.AspNetCore.Routing;
+using System.Linq;
+using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 
 namespace DisasterUnit_Test
 {
@@ -14,6 +20,9 @@ namespace DisasterUnit_Test
 
         private DbContextOptions<Disaster_Context> _options;
         private DbContextOptions<Goods_donation_Context> _GoodsOptions;
+        private DbContextOptions<Monetary_donations_Context> _MoneyOptions;
+        private DbContextOptions<Purchase_Context> _PurchaseOptions;
+
 
         public UnitTest1()
         {
@@ -30,51 +39,176 @@ namespace DisasterUnit_Test
             _GoodsOptions = new DbContextOptionsBuilder<Goods_donation_Context>()
                 .UseSqlServer(_config.GetConnectionString("Online"))
                 .Options;
+
+            _MoneyOptions = new DbContextOptionsBuilder<Monetary_donations_Context>()
+                .UseSqlServer(_config.GetConnectionString("Online"))
+                .Options;
+            _PurchaseOptions = new DbContextOptionsBuilder<Purchase_Context>()
+                .UseSqlServer(_config.GetConnectionString("Online"))
+                .Options;
         }
 
-        [TestMethod]
-        public void InitializeDatabaseWithDisaster()
+        //[TestMethod]
+        //public void InitializeDatabaseWithDisaster()
+        //{
+        //    using (var context = new Disaster_Context(_options))
+        //    {
+        //        context.Database.EnsureCreated();
+
+        //        var disaster1 = new Disaster()
+        //        {
+        //            DisasterName = "Hurricane",
+        //            Location = "Johannesburg",
+        //            Description = "Heavy wind",
+        //            StartDate = new DateTime(2022, 11, 18),
+        //            EndDate = new DateTime(2022, 11, 23),
+        //            AidType = "Shelter",
+        //            Status = "Active"
+        //        };
+
+        //        context.Disaster.AddRange(disaster1);
+        //        context.SaveChanges();
+        //    }
+
+
+        //}
+        //[TestMethod]
+        //public void InitializeDatabaseWithGoods()
+        //{
+        //    using (var context = new Goods_donation_Context(_GoodsOptions))
+        //    {
+        //        context.Database.EnsureCreated();
+
+        //        var goods1 = new Goods_donations()
+        //        {
+        //            Goods_Category = "Jackets",
+        //            Num_items = 3,
+        //            Goods_Description = "Thick",
+        //            DonationDate = new DateTime(2022, 11, 11),
+        //            Goods_Donor = "Dom",
+        //        };
+
+        //        context.Goods_donations.AddRange(goods1);
+        //        context.SaveChanges();
+        //    }
+        //}
+
+        //[TestMethod]
+        //public void InitializeDatabaseWithMontary()
+        //{
+        //    using (var context = new Monetary_donations_Context(_MoneyOptions))
+        //    {
+        //        context.Database.EnsureCreated();
+
+        //        var money1 = new Monetary_donations()
+        //        {
+                    
+        //            Amount = 5000,
+        //            DonationDate = new DateTime(2022, 11, 11),
+        //            Donor = "Dom",
+        //        };
+
+        //        context.Monetary_donations.AddRange(money1);
+        //        context.SaveChanges();
+        //    }
+        //}
+
+        //[TestMethod]
+        //public void TestDisasterView()
+        //{
+        //    DisastersController disastersController = new DisastersController();
+        //    ViewResult result = disastersController.View() as ViewResult;
+        //    Assert.IsNotNull(result);
+        //}
+
+        public int calculateTotalPurchase()
         {
-            using (var context = new Disaster_Context(_options))
+            using (var context = new Purchase_Context(_PurchaseOptions))
             {
-                context.Database.EnsureCreated();
+                var purchaseTotal = context.Purchase.Where(x => x.Amount >= 0).Sum(y => y.Amount);
 
-                var disaster1 = new Disaster()
-                {
-                    DisasterName = "Hurricane",
-                    Location = "Johannesburg",
-                    Description = "Heavy wind",
-                    StartDate = new DateTime(2022, 11, 18),
-                    EndDate = new DateTime(2022, 11, 23),
-                    AidType = "Shelter",
-                    Status = "Active"
-                };
-
-                context.Disaster.AddRange(disaster1);
-                context.SaveChanges();
+                return purchaseTotal;
             }
-
-
         }
+            
         [TestMethod]
-        public void InitializeDatabaseWithGoods()
+        public void GetTotalPurchase()
+        {
+
+            int Actual = calculateTotalPurchase();
+            int expected = 1800;
+            Assert.AreEqual(expected, Actual);
+        }
+
+        public int calculateTotalMoney()
+        {
+            using (var context = new Monetary_donations_Context(_MoneyOptions))
+            {
+                var total = context.Monetary_donations.Where(x => x.Amount >= 0).Sum(y => y.Amount);
+
+                return total;
+            }
+        }
+            
+        [TestMethod]
+        public void GetTotalMoney()
+        {
+
+            int Actual = calculateTotalMoney();
+            int expected = 55003;
+            Assert.AreEqual(expected, Actual);
+        }
+
+       
+
+        public int calculateTotalGoods()
         {
             using (var context = new Goods_donation_Context(_GoodsOptions))
             {
-                context.Database.EnsureCreated();
+                var total = context.Goods_donations.Where(x => x. Num_items>= 0).Sum(y => y.Num_items);
 
-                var goods1 = new Goods_donations()
-                {
-                    Goods_Category = "Jackets",
-                    Num_items = 3,
-                    Goods_Description = "Thick",
-                    DonationDate = new DateTime(2022, 11, 11),
-                    Goods_Donor = "Dom",
-                };
-
-                context.Goods_donations.AddRange(goods1);
-                context.SaveChanges();
+                return total;
             }
         }
+
+        [TestMethod]
+        public void GetTotalGoods()
+        {
+
+            int Actual = calculateTotalGoods();
+            int expected = 53;
+            Assert.AreEqual(expected, Actual);
+        }
+
+
+        public int calculateTotalMoneyLeft()
+        {
+            var left = calculateTotalMoney() - calculateTotalPurchase();
+            return left;
+            
+
+        }
+
+        [TestMethod]
+        public void GetTotalMoneyLeft()
+        {
+
+            int Actual = calculateTotalMoneyLeft();
+            int expected = 53203;
+            Assert.AreEqual(expected, Actual);
+        }
+
+
+
+        //[TestMethod]
+        //public void GetTotalMoney()
+        //{
+        //    Monetary_donationsController monetary_Donations = new Monetary_donationsController();
+        //    string Actual = monetary_Donations.ViewBag.Total();
+        //    string expected = "10003";
+        //    Assert.AreEqual(expected, Actual);
+        //}
+
+
     }
 }

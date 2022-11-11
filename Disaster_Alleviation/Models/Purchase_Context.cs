@@ -14,7 +14,7 @@ namespace Disaster_Alleviation.Models
 
             }
             public DbSet<Purchase> Purchase { get; set; }
-       
+        public IEnumerable<object> Monetary_donations { get; set; }
     }
     
 }

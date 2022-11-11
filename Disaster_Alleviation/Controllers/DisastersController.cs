@@ -19,6 +19,8 @@ namespace Disaster_Alleviation.Controllers
             _context = context;
         }
 
+
+
         // GET: Disasters
         //code attribution
         //this method was taken DotNetTricks
