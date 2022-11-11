@@ -48,78 +48,72 @@ namespace DisasterUnit_Test
                 .Options;
         }
 
-        //[TestMethod]
-        //public void InitializeDatabaseWithDisaster()
-        //{
-        //    using (var context = new Disaster_Context(_options))
-        //    {
-        //        context.Database.EnsureCreated();
+        [TestMethod]
+        public void InitializeDatabaseWithDisaster()
+        {
+            using (var context = new Disaster_Context(_options))
+            {
+                context.Database.EnsureCreated();
 
-        //        var disaster1 = new Disaster()
-        //        {
-        //            DisasterName = "Hurricane",
-        //            Location = "Johannesburg",
-        //            Description = "Heavy wind",
-        //            StartDate = new DateTime(2022, 11, 18),
-        //            EndDate = new DateTime(2022, 11, 23),
-        //            AidType = "Shelter",
-        //            Status = "Active"
-        //        };
+                var disaster1 = new Disaster()
+                {
+                    DisasterName = "Hurricane",
+                    Location = "Johannesburg",
+                    Description = "Heavy wind",
+                    StartDate = new DateTime(2022, 11, 18),
+                    EndDate = new DateTime(2022, 11, 23),
+                    AidType = "Shelter",
+                    Status = "Active"
+                };
 
-        //        context.Disaster.AddRange(disaster1);
-        //        context.SaveChanges();
-        //    }
+                context.Disaster.AddRange(disaster1);
+                context.SaveChanges();
+            }
 
 
-        //}
-        //[TestMethod]
-        //public void InitializeDatabaseWithGoods()
-        //{
-        //    using (var context = new Goods_donation_Context(_GoodsOptions))
-        //    {
-        //        context.Database.EnsureCreated();
+        }
+        [TestMethod]
+        public void InitializeDatabaseWithGoods()
+        {
+            using (var context = new Goods_donation_Context(_GoodsOptions))
+            {
+                context.Database.EnsureCreated();
 
-        //        var goods1 = new Goods_donations()
-        //        {
-        //            Goods_Category = "Jackets",
-        //            Num_items = 3,
-        //            Goods_Description = "Thick",
-        //            DonationDate = new DateTime(2022, 11, 11),
-        //            Goods_Donor = "Dom",
-        //        };
+                var goods1 = new Goods_donations()
+                {
+                    Goods_Category = "Jackets",
+                    Num_items = 3,
+                    Goods_Description = "Thick",
+                    DonationDate = new DateTime(2022, 11, 11),
+                    Goods_Donor = "Dom",
+                };
 
-        //        context.Goods_donations.AddRange(goods1);
-        //        context.SaveChanges();
-        //    }
-        //}
+                context.Goods_donations.AddRange(goods1);
+                context.SaveChanges();
+            }
+        }
 
-        //[TestMethod]
-        //public void InitializeDatabaseWithMontary()
-        //{
-        //    using (var context = new Monetary_donations_Context(_MoneyOptions))
-        //    {
-        //        context.Database.EnsureCreated();
+        [TestMethod]
+        public void InitializeDatabaseWithMontary()
+        {
+            using (var context = new Monetary_donations_Context(_MoneyOptions))
+            {
+                context.Database.EnsureCreated();
 
-        //        var money1 = new Monetary_donations()
-        //        {
-                    
-        //            Amount = 5000,
-        //            DonationDate = new DateTime(2022, 11, 11),
-        //            Donor = "Dom",
-        //        };
+                var money1 = new Monetary_donations()
+                {
 
-        //        context.Monetary_donations.AddRange(money1);
-        //        context.SaveChanges();
-        //    }
-        //}
+                    Amount = 5000,
+                    DonationDate = new DateTime(2022, 11, 11),
+                    Donor = "Dom",
+                };
 
-        //[TestMethod]
-        //public void TestDisasterView()
-        //{
-        //    DisastersController disastersController = new DisastersController();
-        //    ViewResult result = disastersController.View() as ViewResult;
-        //    Assert.IsNotNull(result);
-        //}
+                context.Monetary_donations.AddRange(money1);
+                context.SaveChanges();
+            }
+        }
+
+
 
         public int calculateTotalPurchase()
         {
@@ -198,16 +192,6 @@ namespace DisasterUnit_Test
             Assert.AreEqual(expected, Actual);
         }
 
-
-
-        //[TestMethod]
-        //public void GetTotalMoney()
-        //{
-        //    Monetary_donationsController monetary_Donations = new Monetary_donationsController();
-        //    string Actual = monetary_Donations.ViewBag.Total();
-        //    string expected = "10003";
-        //    Assert.AreEqual(expected, Actual);
-        //}
 
         public int calculateTotalAMoney()
         {
